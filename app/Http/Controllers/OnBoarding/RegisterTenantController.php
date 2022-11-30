@@ -29,9 +29,7 @@ class RegisterTenantController extends Controller
             'admin_last_name'=>$data['last_name'],
             'admin_phone'=>$data['phone'],
         ]);
-        $domain = implode(".",[
-            $data['domain'],env('CENTRAL_DOMAIN','localhost')
-        ]);
+        $domain = implode("."  ,array_filter([$data['domain'],env('MAIN_DOMAIN')]));
         
         //Assign domain to Tenant.
         $tenant->domains()->create(['domain'=>$domain]);
