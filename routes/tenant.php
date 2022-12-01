@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Tenant\DashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
@@ -29,12 +30,21 @@ Route::group([
     function(){
         // Auth routes & publicly accessible
         Auth::routes(['register'=>false ,'verify'=>true]);
+        Route::get('/', function () {
+            return redirect('/dashboard');
+        });
         //Require auth :
-        
-        //Allowed for non verified uses
-        Route::group(['middelware'=>'auth', ]  ,function(){
-            Route::get('/',[HomeController::class,'index']);
-                
+
+        Route::group(['as'=>'tenant.','prefix' =>'/' ,    
+            'middleware'=>['auth',InitializeTenancyByDomainOrSubdomain::class,PreventAccessFromCentralDomains::class],
+    ]  ,function(){
+            Route::get('/dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
+            
         } );
+
+
+        //Allowed for non verified uses
+
 });
+
 
