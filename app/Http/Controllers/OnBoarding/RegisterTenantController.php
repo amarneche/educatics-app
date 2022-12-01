@@ -46,7 +46,7 @@ class RegisterTenantController extends Controller
         }); 
 
         //redirect to the domain account.
-        return redirect()->route('home')->domain($domain);
+        return redirect()->route('dashboard')->domain($domain);
 
 
     }
