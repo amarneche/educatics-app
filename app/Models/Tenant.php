@@ -18,4 +18,14 @@ class Tenant extends BaseTenant implements TenantWithDatabase
             'id'
         ];
     }
+
+
+    public function users(){
+        $users =collect();
+        $this->run(function()use($users){
+            $users=User::all();
+            
+        });
+        return $users;
+    }
 }
