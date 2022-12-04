@@ -14,6 +14,40 @@
                         </a>
                     </li>
 
+                    {{-- Utilisateurs  --}}
+                    <li class="treeview">
+                        <a href="#">
+                            <i span class="icon-Layout-grid"><span class="path1"></span><span
+                                    class="path2"></span></i>
+                            <span>{{ __('Utilisateurs') }}</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-right pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a href="{{route('tenant.users.index')}}">
+                                    <i class="icon-Commit"><span class="path1"></span><span  class="path2"></span></i>{{__("Tous les utilisateurs")}}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{route('tenant.users.create')}}">
+                                    <i class="icon-Commit"><span class="path1"></span><span  class="path2"></span></i>{{__("Créer")}}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{route('tenant.users.index')}}">
+                                    <i class="icon-Commit"><span class="path1"></span><span  class="path2"></span></i>{{__("Roles")}}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{route('tenant.users.index')}}">
+                                    <i class="icon-Commit"><span class="path1"></span><span  class="path2"></span></i>{{__("Permissions")}}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
                     <li class="treeview">
                         <a href="#">
                             <i span class="icon-Layout-grid"><span class="path1"></span><span

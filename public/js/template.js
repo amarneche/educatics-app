@@ -1544,29 +1544,29 @@ function w3_close() {
   document.getElementById("myOverlay").style.display = "none";
 }
 
-// loader 
+// // loader 
 		
-	var loader;
+// 	var loader;
 
-	function loadNow(opacity) {
-		if (opacity <= 0) {
-			displayContent();
-		} else {
-			loader.style.opacity = opacity;
-			window.setTimeout(function() {
-				loadNow(opacity - 0.05);
-			}, 50);
-		}
-	}
+// 	function loadNow(opacity) {
+// 		if (opacity <= 0) {
+// 			displayContent();
+// 		} else {
+// 			loader.style.opacity = opacity;
+// 			window.setTimeout(function() {
+// 				loadNow(opacity - 0.05);
+// 			}, 50);
+// 		}
+// 	}
 
-	function displayContent() {
-		loader.style.display = 'none';
-	}
+// 	function displayContent() {
+// 		loader.style.display = 'none';
+// 	}
 
-	document.addEventListener("DOMContentLoaded", function() {
-		loader = document.getElementById('loader');
-		loadNow(1);
-	});
+// 	document.addEventListener("DOMContentLoaded", function() {
+// 		loader = document.getElementById('loader');
+// 		loadNow(1);
+// 	});
 
 
 new PerfectScrollbar(".multinav-scroll");
