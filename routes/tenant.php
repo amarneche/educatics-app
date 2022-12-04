@@ -41,6 +41,7 @@ Route::group([
     ]  ,function(){
             Route::get('/dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
             Route::resource('users',UserController::class);
+            Route::resource('students',StudentController::class);
             
         } );
 

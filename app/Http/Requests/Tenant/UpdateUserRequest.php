@@ -3,13 +3,12 @@
 namespace App\Http\Requests\Tenant;
 
 use App\Models\Role;
+
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rule ;
 
-class StoreUserRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
-
-    // protected $errorBag="storeUser";
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -17,7 +16,6 @@ class StoreUserRequest extends FormRequest
      */
     public function authorize()
     {
-        // check is user can create and if Tenant has not reached it's quota
         return true;
     }
 
@@ -31,8 +29,8 @@ class StoreUserRequest extends FormRequest
         return [
             'first_name' =>['required',],
             'last_name' =>['required',],
-            'email' =>['required','unique:users'],
-            'password' =>['required','min:8','confirmed'],
+            'email' =>['required','unique:users,id,'.$this->user->id],
+            'password' =>['confirmed'],
             'phone' =>['',],
             'role'=>[Rule::in(Role::all()->pluck('name'))]
         ];

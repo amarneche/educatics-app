@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\Tenant\StoreUserRequest;
+use App\Http\Requests\Tenant\UpdateUserRequest;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -44,7 +45,7 @@ class UserController extends Controller
         $userData=$request->validated();
         $userData['password'] = Hash::make($request->password);
         $user =User::create($userData);
-        $user->assignRole('admin');
+        $user->assignRole($request->role);
         session()->flash('success',__("Utilisateur crée avec succées"));
         return redirect()->route('tenant.users.index');
 
@@ -81,10 +82,13 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
         //
+        $user->syncRoles(['admin']);
         $user->update($request->validated());
+
+        session()->flash('success',__("Successfuly updated user"));
         return redirect()->back();
     }
 

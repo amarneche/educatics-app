@@ -31,7 +31,12 @@
                                         <td>{{ $user->last_name }}</td>
                                         <td>{{ $user->first_name }}</td>
                                         <td>{{ $user->email }}</td>
-                                        <td>{{ $user->roles->pluck('name') }}</td>
+                                        <td> 
+                                            @foreach($user->roles as $role)
+                                               <strong> <a href="">{{__($role->name)}}</a></strong> @if(!$loop->last) , @endif
+                                            @endforeach
+                                        
+                                        </td>
                                         <td>
                                             <div class="tools">
                                                 <a href="{{ route('tenant.users.edit', ['user' => $user]) }}"

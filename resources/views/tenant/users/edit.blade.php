@@ -10,17 +10,27 @@
         </div>
         <div class="box-body">
            <div class="row">
-            <div class="col-md-6">
-                <x-form.input name="last_name" :value="old('last_name')" :label="__('Nom')" />
+            <div class="col-md-12">
+                <x-form.select :label="__('Selectionner le role:')"  name="role">
+                    <x-slot:slot>
+                        <option  disabled selected > {{__('Selectionner le role')}} </option>
+                       @foreach($component->getUserRoles() as $role) 
+                        <option value="{{$role}}" @selected($user->hasRole($role) )  >{{__($role)}}</option>
+                       @endforeach
+                    </x-slot>
+                </x-form.select>
             </div>
             <div class="col-md-6">
-                <x-form.input name="first_name" type="text" :value="old('first_name')" :label="__('Prénom')" />
+                <x-form.input name="last_name" :value="old('last_name',$user->last_name)" :label="__('Nom')" />
             </div>
             <div class="col-md-6">
-                <x-form.input name="email" type="email" :value="old('email')" :label="__('Email')" />
+                <x-form.input name="first_name" type="text" :value="old('first_name',$user->first_name)" :label="__('Prénom')" />
             </div>
             <div class="col-md-6">
-                <x-form.input name="phone" :value="old('phone')" :label="__('Téléphone')" />
+                <x-form.input name="email" type="email" :value="old('email',$user->email) " :label="__('Email')" />
+            </div>
+            <div class="col-md-6">
+                <x-form.input name="phone" :value="old('phone',$user->phone)" :label="__('Téléphone')" />
             </div>
             <div class="col-md-6">
                 <x-form.input name="password" type="password" value="" autocomplete="new-password" :label="__('Mot de passe')" />
