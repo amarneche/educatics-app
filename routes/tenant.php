@@ -37,8 +37,10 @@ Route::group([
 
         Route::group(['as'=>'tenant.','prefix' =>'/' ,    
             'middleware'=>['auth',InitializeTenancyByDomainOrSubdomain::class,PreventAccessFromCentralDomains::class],
+            'namespace'=>'App\Http\Controllers\Tenant'
     ]  ,function(){
             Route::get('/dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
+            Route::resource('users',UserController::class);
             
         } );
 

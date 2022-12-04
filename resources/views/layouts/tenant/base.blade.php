@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../images/favicon.ico">
 
+    <link rel="icon" href="../images/favicon.ico">
     <title>EduAdmin - Dashboard</title>
 
     <!-- Vendors Style-->
@@ -23,7 +23,7 @@
 <body class="hold-transition light-skin sidebar-mini theme-primary fixed">
 
     <div class="wrapper">
-        <div id="loader"></div>
+        {{-- <div id="loader"></div> --}}
         @include("layouts.tenant.header")
         @include("layouts.tenant.aside")
 
@@ -49,6 +49,9 @@
         <div class="control-sidebar-bg"></div>
 
     </div>
+    @yield('modals')
+
+    @include('tenant.toasts.toasts')
     <!-- ./wrapper -->
 
     <!-- ./side demo panel -->
@@ -64,12 +67,16 @@
     <script src="{{ global_asset('js/vendors.min.js') }}"></script>
     <script src="{{ global_asset('assets/icons/feather-icons/feather.min.js') }}"></script>
     <script src="{{ global_asset('assets/vendor_components/moment/min/moment.min.js') }}"></script>
-
+    <script src="{{global_asset("assets/vendor_components/jquery-toast-plugin-master/dist/jquery.toast.min.js")}}" ></script>
 
     <!-- EduAdmin App -->
     <script src="{{ global_asset('js/template.js') }}"></script>
     {{-- <script src="{{global_asset("js/pages/dashboard.js")}}"></script> --}}
     {{-- <script src="{{global_asset("js/pages/calendar.js")}}"></script> --}}
+
+    {{-- Custom scripts --}}
+
+    @yield('scripts')
 
 </body>
 
