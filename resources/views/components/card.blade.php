@@ -1,5 +1,9 @@
 <div>
     <div class="box">
+       @isset( $image)
+       {{$image}}
+       @endisset
+
         <div class="box-header with-border">
             <h4 class="box-title">{{ $title }}</h4>
             @isset($toolbar)
