@@ -14,6 +14,7 @@
                         </a>
                     </li>
 
+                    
                     {{-- Utilisateurs  --}}
                     <li class="treeview">
                         <a href="#">
@@ -47,6 +48,28 @@
                             </li>
                         </ul>
                     </li>
+                    {{-- End Utilisateurs --}}
+                    {{-- Courses  --}}
+                    <li class="treeview">
+                        <a href="#">
+                            <i span class="icon-Layout-grid"><span class="path1"></span><span
+                                    class="path2"></span></i>
+                            <span>{{ __('Courses') }}</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-right pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a href="{{route('tenant.courses.index')}}">
+                                    <i class="icon-Commit"><span class="path1"></span><span  class="path2"></span></i>{{__("Tous les cours")}}
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    {{-- End Courses --}}
+
 
                     <li class="treeview">
                         <a href="#">

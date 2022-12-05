@@ -21,11 +21,8 @@ class Tenant extends BaseTenant implements TenantWithDatabase
 
 
     public function users(){
-        $users =collect();
-        $this->run(function()use($users){
-            $users=User::all();
-            
-        });
-        return $users;
+       
+        return $this->run(fn()  => User::all()); 
+        
     }
 }
