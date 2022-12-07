@@ -9,13 +9,13 @@ class Select extends Component
 {
 
     public $label="";
-    public $name="";
+    public $name=null;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($name,$label)
+    public function __construct($name,$label=null)
     {
         //
         $this->name=$name;

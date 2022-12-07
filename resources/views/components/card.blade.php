@@ -1,11 +1,14 @@
 <div>
-    <div class="box">
+    <div {{$attributes->merge(["class"=>"box"])}} >
        @isset( $image)
        {{$image}}
        @endisset
 
         <div class="box-header with-border">
-            <h4 class="box-title">{{ $title }}</h4>
+            @isset($title)
+                <div >{{ $title }}</div>
+            @endisset
+           
             @isset($toolbar)
                 <div class="box-controls pull-right">
                     <div class="box-header-actions">
@@ -18,7 +21,7 @@
         </div>
         <!-- /.box-header -->
         @isset($body)
-            <div class="box-body no-padding">
+            <div  {{$body->attributes->merge(['class'=>'box-body'])}} >
                 {{ $body }}
             </div>
         @endisset

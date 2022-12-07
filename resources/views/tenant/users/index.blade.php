@@ -14,7 +14,7 @@
                     <a class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modal-create-user"> <i
                             class="fa fa-plus"></i>{{ __('Créer') }}</a>
                     </x-slot>
-                    <x-slot:body>
+                    <x-slot:body class="no-padding">
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <tr>

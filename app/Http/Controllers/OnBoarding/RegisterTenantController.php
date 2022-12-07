@@ -43,6 +43,7 @@ class RegisterTenantController extends Controller
                 "password"=>Hash::make($data['password']),
             ]);
             // assign some roles and permissions to this user :
+            $user->assignRoles(['admin']);
         }); 
 
         //redirect to the domain account.
