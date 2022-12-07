@@ -1,3 +1,6 @@
 {
-    "admin":"Administrateur","student":"Etudiant"
+    "admin":"Administrateur",
+    "student":"Etudiant",
+    "teacher":"Enseignant",
+    "employee":"Employé"
 }
