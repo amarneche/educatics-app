@@ -35,7 +35,7 @@
                                         </td>
                                     </tr>
                                 @empty
-                                    <tr> {{ __('Vide') }} </tr>
+                                    <tr>   <td colspan="6" class="text-center">{{ __('Pas de cours') }} </td>  </tr>
                                 @endforelse
                             </tbody>
                         </table>

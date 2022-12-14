@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Sluggify;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Stancl\VirtualColumn\VirtualColumn;
@@ -15,11 +16,12 @@ class Course extends Model implements HasMedia
     use HasFactory;
     use VirtualColumn;
     use InteractsWithMedia;
+    use Sluggify;
 
     protected $guarded=[];
 
     public static function getCustomColumns(): array {
-        return ["title","duration","price","cover_photo","created_by"];
+        return ["title","duration","price","created_by","slug"];
     }
 
     public function createdBy(){

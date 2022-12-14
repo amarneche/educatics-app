@@ -43,9 +43,12 @@ class CourseController extends Controller
     public function store(StoreCourseRequest $request)
     {
         //
-        $path =Storage::put('public',$request->cover_photo);
         $course =Course::create($request->validated());
-        $course->addMedia(Storage::path($path))->toMediaCollection('cover_photo');
+        if(isset($request->cover_photo)){
+            $path =Storage::put('public',$request->cover_photo);
+            $course->addMedia(Storage::path($path))->toMediaCollection('cover_photo');
+        }
+
         
         session()->flash('success',__('Le cours a été crèe avec succès'));
         return redirect()->route('tenant.courses.index');
