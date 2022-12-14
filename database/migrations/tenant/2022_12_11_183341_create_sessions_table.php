@@ -13,15 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('courses', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('slug')->unique()->nullable();
-            $table->integer('price')->default(0);
-            $table->integer("duration")->default(0);
-            $table->json('data')->nullable();
-            $table->foreignId('created_by')->on('users')->nullable();
+        Schema::create('sessions', function (Blueprint $table) {
 
+            $table->id();          
+
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->json('data')->nullable();
+
+            $table->foreignId('course_id');
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('courses');
+        Schema::dropIfExists('sessions');
     }
 };

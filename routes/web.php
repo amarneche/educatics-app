@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 //Central routes : 
 Auth::routes(['register'=>false]);
+
 Route::get('/', function () {
     return redirect('/dashboard');
 });
