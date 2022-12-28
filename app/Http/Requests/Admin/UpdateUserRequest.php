@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Models\Role;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreTenantRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +26,12 @@ class StoreTenantRequest extends FormRequest
     public function rules()
     {
         return [
-            'package'=>['required'],
-            'school_name' =>['required'],
-            'domain' =>['required','unique:domains','alpha_num' ],
+            'first_name' =>['required',],
+            'last_name' =>['required',],
+            'email' =>['required','unique:users,id,'.$this->user->id],
+            'password' =>['confirmed'],
+            'phone' =>['',],
+            'role'=>[Rule::in(Role::all()->pluck('name'))]
         ];
     }
 }

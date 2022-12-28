@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 //Central routes : 
-Auth::routes(['register'=>false]);
+Auth::routes();
 
 Route::get('/', function () {
     return redirect('/dashboard');
@@ -21,8 +21,11 @@ Route::group(['as'=>'onboarding.','middleware' => 'web'  ]  ,function(){
 
 //Admin route authenticated 
 
-Route::group(['as'=>'admin.','prefix'=>'/','namespace'=>'App\Http\Controller\Admin' ,'middleware'=>'auth'] ,function(){
+Route::group(['as'=>'admin.','prefix'=>'/','namespace'=>'App\Http\Controllers\Admin' ,'middleware'=>'auth'] ,function(){
+    
     Route::get('/dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
+    Route::resource('users',UsersController::class);
+    Route::resource('schools',TenantController::class);
 });
 
 

@@ -23,14 +23,17 @@
 <body class="hold-transition light-skin sidebar-mini theme-primary fixed">
 
     <div class="wrapper">
-        <div id="loader"></div>
-        @include("layouts.tenant.header")
-        @include("layouts.tenant.aside")
+        
+        @include("layouts.admin.header")
+        @include("layouts.admin.aside")
 
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <div class="container-full">
+                <div class="content-header">
+                    @yield("breadcrumb")
+                </div>
                 <!-- Main content -->
                 <section class="content">
                     @yield('content')
@@ -42,7 +45,7 @@
 
 
         <!-- Control Sidebar -->
-        @include('layouts.tenant.sidebar')
+        @include('layouts.admin.sidebar')
         <!-- /.control-sidebar -->
 
         <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
@@ -55,7 +58,10 @@
 
     <!-- Sidebar -->
 
+    @yield('modals')
+    @include('layouts.modals.delete')
 
+    @include('layouts.toasts.toasts')
 
     <!-- Page Content overlay -->
 
@@ -70,6 +76,8 @@
     <script src="{{ asset('js/template.js') }}"></script>
     {{-- <script src="{{asset("js/pages/dashboard.js")}}"></script> --}}
     {{-- <script src="{{asset("js/pages/calendar.js")}}"></script> --}}
+
+    @yield('scripts')
 
 </body>
 

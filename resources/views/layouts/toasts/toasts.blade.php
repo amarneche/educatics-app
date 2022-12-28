@@ -1,4 +1,6 @@
 @section('scripts')
+<script src="{{global_asset("assets/vendor_components/jquery-toast-plugin-master/dist/jquery.toast.min.js")}}" ></script>
+
     @if (session()->has('success'))
         <script>
             $(document).ready(function() {
