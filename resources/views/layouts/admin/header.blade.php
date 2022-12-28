@@ -1,183 +1,95 @@
+<nav class="layout-navbar container-fluid navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+id="layout-navbar">
+<div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+    <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+        <i class="bx bx-menu bx-sm"></i>
+    </a>
+</div>
 
-        <header class="main-header">
-            <div class="d-flex align-items-center logo-box justify-content-start">
-                <a href="#"
-                    class="waves-effect waves-light nav-link d-none d-md-inline-block mx-10 push-btn bg-transparent text-white"
-                    data-toggle="push-menu" role="button">
-                    <span class="icon-Align-left"><span class="path1"></span><span class="path2"></span><span
-                            class="path3"></span></span>
-                </a>
-                <!-- Logo -->
-                <a href="/" class="logo">
-                    <!-- logo-->
-                    <div class="logo-lg">
-                        <span class="light-logo"><img src="{{ global_asset('images/logo/light.svg') }}"
-                                alt="Educatics logo"></span>
-                        <span class="dark-logo"><img src="{{ global_asset('images/logo/dark.svg') }}"
-                                alt="educatics logo"></span>
-                    </div>
-                </a>
-            </div>
-            <!-- Header Navbar -->
-            <nav class="navbar navbar-static-top">
-                <!-- Sidebar toggle button-->
-                <div class="app-menu">
-                    <ul class="header-megamenu nav">
-                        <li class="btn-group nav-item d-md-none">
-                            <a href="#" class="waves-effect waves-light nav-link push-btn" data-toggle="push-menu"
-                                role="button">
-                                <span class="icon-Align-left"><span class="path1"></span><span
-                                        class="path2"></span><span class="path3"></span></span>
-                            </a>
-                        </li>
-                        <li class="btn-group nav-item d-none d-xl-inline-block">
-                            <a href="dede" class="waves-effect waves-light nav-link svg-bt-icon" title="Chat">
-                                <i class="icon-Chat"><span class="path1"></span><span class="path2"></span></i>
-                            </a>
-                        </li>
-                        <li class="btn-group nav-item d-none d-xl-inline-block">
-                            <a href="#" class="waves-effect waves-light nav-link svg-bt-icon" title="Mailbox">
-                                <i class="icon-Mailbox"><span class="path1"></span><span class="path2"></span></i>
-                            </a>
-                        </li>
-                        <li class="btn-group nav-item d-none d-xl-inline-block">
-                            <a href="extra_#" class="waves-effect waves-light nav-link svg-bt-icon" title="Taskboard">
-                                <i class="icon-Clipboard-check"><span class="path1"></span><span
-                                        class="path2"></span><span class="path3"></span></i>
-                            </a>
-                        </li>
-                    </ul>
+<div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+    <!-- Search -->
+    <div class="navbar-nav align-items-center">
+        <div class="nav-item d-flex align-items-center">
+            <i class="bx bx-search fs-4 lh-0"></i>
+            <input type="text" class="form-control border-0 shadow-none"
+                placeholder="Search..." aria-label="Search..." />
+        </div>
+    </div>
+    <!-- /Search -->
+
+    <ul class="navbar-nav flex-row align-items-center ms-auto">
+        <!-- Place this tag where you want the button to render. -->
+        <li class="nav-item lh-1 me-3">
+            <a class="github-button"
+                href="https://github.com/themeselection/sneat-html-admin-template-free"
+                data-icon="octicon-star" data-size="large" data-show-count="true"
+                aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">Star</a>
+        </li>
+
+        <!-- User -->
+        <li class="nav-item navbar-dropdown dropdown-user dropdown">
+            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
+                data-bs-toggle="dropdown">
+                <div class="avatar avatar-online">
+                    <img src="template/assets/img/avatars/1.png" alt
+                        class="w-px-40 h-auto rounded-circle" />
                 </div>
-
-                <div class="navbar-custom-menu r-side">
-                    <ul class="nav navbar-nav">
-                        <li class="btn-group nav-item d-lg-inline-flex d-none">
-                            <a href="#" data-provide="fullscreen"
-                                class="waves-effect waves-light nav-link full-screen" title="Full Screen">
-                                <i class="icon-Expand-arrows"><span class="path1"></span><span
-                                        class="path2"></span></i>
-                            </a>
-                        </li>
-                        <li class="btn-group d-lg-inline-flex d-none">
-                            <div class="app-menu">
-                                <div class="search-bx mx-5">
-                                    <form>
-                                        <div class="input-group">
-                                            <input type="search" class="form-control" placeholder="Search"
-                                                aria-label="Search" aria-describedby="button-addon2">
-                                            <div class="input-group-append">
-                                                <button class="btn" type="submit" id="button-addon3"><i
-                                                        class="ti-search"></i></button>
-                                            </div>
-                                        </div>
-                                    </form>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                    <a class="dropdown-item" href="#">
+                        <div class="d-flex">
+                            <div class="flex-shrink-0 me-3">
+                                <div class="avatar avatar-online">
+                                    <img src="{{ global_asset('template/assets/img/avatars/1.png') }}"
+                                        alt class="w-px-40 h-auto rounded-circle" />
                                 </div>
                             </div>
-                        </li>
-                        <!-- Notifications -->
-                        <li class="dropdown notifications-menu">
-                            <a href="#" class="waves-effect waves-light dropdown-toggle"
-                                data-bs-toggle="dropdown" title="Notifications">
-                                <i class="icon-Notifications"><span class="path1"></span><span
-                                        class="path2"></span></i>
-                            </a>
-                            <ul class="dropdown-menu animated bounceIn">
-
-                                <li class="header">
-                                    <div class="p-20">
-                                        <div class="flexbox">
-                                            <div>
-                                                <h4 class="mb-0 mt-0">Notifications</h4>
-                                            </div>
-                                            <div>
-                                                <a href="#" class="text-danger">Clear All</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <!-- inner menu: contains the actual data -->
-                                    <ul class="menu sm-scrol">
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-users text-info"></i> Curabitur id eros quis nunc
-                                                suscipit blandit.
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-warning text-warning"></i> Duis malesuada justo eu
-                                                sapien elementum, in semper diam posuere.
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-users text-danger"></i> Donec at nisi sit amet tortor
-                                                commodo porttitor pretium a erat.
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-shopping-cart text-success"></i> In gravida mauris et
-                                                nisi
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-user text-danger"></i> Praesent eu lacus in libero
-                                                dictum fermentum.
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-user text-primary"></i> Nunc fringilla lorem
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-user text-success"></i> Nullam euismod dolor ut quam
-                                                interdum, at scelerisque ipsum imperdiet.
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="footer">
-                                    <a href="#">View all</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <!-- User Account-->
-                        <li class="dropdown user user-menu">
-                            <a href="#" class="waves-effect waves-light dropdown-toggle"
-                                data-bs-toggle="dropdown" title="User">
-                                <i class="icon-User"><span class="path1"></span><span class="path2"></span></i>
-                            </a>
-                            <ul class="dropdown-menu animated flipInX">
-                                <li class="user-body">
-                                    <a class="dropdown-item" href="#"><i class="ti-user text-muted me-2"></i>
-                                        Profile</a>
-                                    <a class="dropdown-item" href="#"><i class="ti-wallet text-muted me-2"></i>
-                                        My Wallet</a>
-                                    <a class="dropdown-item" href="#"><i
-                                            class="ti-settings text-muted me-2"></i> Settings</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#"><i class="ti-lock text-muted me-2"></i>
-                                        Logout</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <!-- Control Sidebar Toggle Button -->
-                        <li>
-                            <a href="#" data-toggle="control-sidebar" title="Setting"
-                                class="waves-effect waves-light">
-                                <i class="icon-Settings"><span class="path1"></span><span class="path2"></span></i>
-                            </a>
-                        </li>
-
-                    </ul>
-                </div>
-            </nav>
-        </header>
+                            <div class="flex-grow-1">
+                                <span
+                                    class="fw-semibold d-block">{{ auth()->user()->name }}</span>
+                                <small class="text-muted">Admin</small>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <div class="dropdown-divider"></div>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#">
+                        <i class="bx bx-user me-2"></i>
+                        <span class="align-middle">My Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#">
+                        <i class="bx bx-cog me-2"></i>
+                        <span class="align-middle">Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#">
+                        <span class="d-flex align-items-center align-middle">
+                            <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+                            <span class="flex-grow-1 align-middle">Billing</span>
+                            <span
+                                class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <div class="dropdown-divider"></div>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="auth-login-basic.html">
+                        <i class="bx bx-power-off me-2"></i>
+                        <span class="align-middle">Log Out</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!--/ User -->
+    </ul>
+</div>
+</nav>
