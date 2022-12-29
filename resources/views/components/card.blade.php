@@ -1,17 +1,17 @@
 <div>
-    <div {{$attributes->merge(["class"=>"box"])}} >
+    <div {{$attributes->merge(["class"=>"card "])}} >
        @isset( $image)
        {{$image}}
        @endisset
 
-        <div class="box-header with-border">
+        <div class="card-header with-border">
             @isset($title)
                 <div >{{ $title }}</div>
             @endisset
            
             @isset($toolbar)
-                <div class="box-controls pull-right">
-                    <div class="box-header-actions">
+                <div class="card-controls pull-right">
+                    <div class="card-header-actions">
 
                         {{ $toolbar }}
 
@@ -19,16 +19,16 @@
                 </div>
             @endisset
         </div>
-        <!-- /.box-header -->
+        <!-- /.card-header -->
         @isset($body)
-            <div  {{$body->attributes->merge(['class'=>'box-body'])}} >
+            <div  {{$body->attributes->merge(['class'=>'card-body'])}} >
                 {{ $body }}
             </div>
         @endisset
 
-        <!-- /.box-body -->
+        <!-- /.card-body -->
         @isset($footer)
-            <div class="box-footer">
+            <div class="card-footer">
                 {{ $footer }}
             </div>
         @endisset

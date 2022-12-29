@@ -25,6 +25,7 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
 
 Route::group([
+    'as'=>'tenant.',
     'middleware'=>['web',InitializeTenancyByDomainOrSubdomain::class,PreventAccessFromCentralDomains::class],
             ],
     function(){

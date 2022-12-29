@@ -13,7 +13,7 @@ class StoreTenantRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class StoreTenantRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'package'=>['required'],
+            'school_name' =>['required'],
+            'domain' =>['required','unique:domains','alpha_num' ],
         ];
     }
 }

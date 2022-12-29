@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreTenantRequest;
 use App\Http\Requests\Admin\UpdateTenantRequest;
+use App\Models\User;
+use Carbon\Carbon;
 
 class TenantController extends Controller
 {
@@ -17,8 +19,9 @@ class TenantController extends Controller
      */
     public function index()
     {
-        $tenants=Tenant::with('domains');
-        return view('admin.tenants.index',compact('tenants'));
+        $schools=Tenant::with('domains')->get();
+
+        return view('admin.tenants.index',compact('schools'));
 
     }
 
@@ -42,8 +45,24 @@ class TenantController extends Controller
     public function store(StoreTenantRequest $request)
     {
         //
-        Tenant::create($request->validated());
-        return redirect()->route('admin.tenants.index');
+        $data =$request->validated();
+        $data['owner_id']=auth()->user()->id;
+        $data['status']="active";
+        $data["valid_until"]= Carbon::today()->addDays(30);
+
+        $tenant = Tenant::create($data);               
+        //should validate subdomain . 
+        $domain = implode("."  ,array_filter([$request->domain,env('MAIN_DOMAIN')]));
+        $tenant->domains()->create(['domain'=>$domain]);
+        if(auth()->user()->hasRole('tenant')){
+            $currentUserData= auth()->user()->getAttributes(); 
+            $tenant->run(  function()use($currentUserData){
+                User::create($currentUserData);
+            } );
+        }
+        session()->flash('success',__("Ecole crée avec success"));
+        
+        return redirect()->route('admin.schools.index');
         
     }
 
@@ -53,44 +72,49 @@ class TenantController extends Controller
      * @param  \App\Models\Tenant  $tenant
      * @return \Illuminate\Http\Response
      */
-    public function show(Tenant $tenant)
+    public function show(Tenant $school)
     {
         //
-        $tenant->load('domains');
-        return view('admin.tenants.show',compact('tenant'));
+        $school->load('domains');
+        return view('admin.tenants.show',compact('school'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Tenant  $tenant
+     * @param  \App\Models\Tenant  $school
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tenant $tenant)
+    public function edit(Tenant $school)
     {
-        //
+        return view('admin.tenants.edit', compact('school'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Tenant  $tenant
+     * @param  \App\Models\Tenant  $school
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTenantRequest $request, Tenant $tenant)
+    public function update(UpdateTenantRequest $request, Tenant $school)
     {
-        //
+        $school->update($request->validated());
+        session()->flash('success', __("Tenants updated successfully"));
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Tenant  $tenant
+     * @param  \App\Models\Tenant  $school
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tenant $tenant)
+    public function destroy(Tenant $school)
     {
-        //
+
+        $school->delete();
+        session()->flash('success', __("'Supprimé !'"));
+        return redirect()->route("admin.schools.index");
     }
 }

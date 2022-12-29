@@ -51,7 +51,7 @@
     </div>
     @yield('modals')
 
-    @include('tenant.toasts.toasts')
+    @include('layouts.toasts.toasts')
     <!-- ./wrapper -->
 
     <!-- ./side demo panel -->
@@ -67,7 +67,6 @@
     <script src="{{ global_asset('js/vendors.min.js') }}"></script>
     <script src="{{ global_asset('assets/icons/feather-icons/feather.min.js') }}"></script>
     <script src="{{ global_asset('assets/vendor_components/moment/min/moment.min.js') }}"></script>
-    <script src="{{global_asset("assets/vendor_components/jquery-toast-plugin-master/dist/jquery.toast.min.js")}}" ></script>
 
     <!-- EduAdmin App -->
     <script src="{{ global_asset('js/template.js') }}"></script>

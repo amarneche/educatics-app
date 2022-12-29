@@ -11,6 +11,7 @@ use Stancl\Tenancy\Database\Concerns\HasDomains;
 class Tenant extends BaseTenant implements TenantWithDatabase
 {
     use HasDatabase, HasDomains,HasFactory;
+    protected $dates=["valid_until"];
 
     public static function getCustomColumns(): array
     {
@@ -24,5 +25,13 @@ class Tenant extends BaseTenant implements TenantWithDatabase
        
         return $this->run(fn()  => User::all()); 
         
+    }
+
+    public function owner (){
+        return $this->belongsTo(User::class,'owner_id');
+    }
+    public function getValidUntilFormattedAttribute(){
+        if($this->valid_until)
+        return $this->valid_until->format('d-M-Y');
     }
 }

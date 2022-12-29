@@ -1,36 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<html
+  lang="en"
+  class="light-style customizer-hide"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="template/assets/"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
 
-    <title>{{__("Educatics Schooling management system")}} </title>
-  
-	<!-- Vendors Style-->
-	<link rel="stylesheet" href="{{global_asset("css/vendors_css.css")}}">
-	  
-	<!-- Style-->  
-	<link rel="stylesheet" href="{{global_asset("css/style.css")}}">
-	<link rel="stylesheet" href="{{global_asset("css/skin_color.css")}}">	
+    <title>Login Basic - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
-</head>
-	
-<body class="hold-transition theme-primary bg-img" style="background-image: url(../images/auth-bg/bg-1.jpg)">
-	
-	<div class="container h-p100">
-        <div class="row align-items-center justify-content-md-center h-p100">
-        @yield("content")
-        </div>
-	</div>
+    <meta name="description" content="" />
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="template/assets/img/favicon/favicon.ico" />
 
-	<!-- Vendor JS -->
-	<script src="{{global_asset("js/vendors.min.js")}}"></script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
 
-    <script src="{{global_asset("assets/icons/feather-icons/feather.min.js")}}"></script>	
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="{{global_asset("template/assets/vendor/fonts/boxicons.css")}}" />
 
-</body>
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="{{global_asset("template/assets/vendor/css/core.css")}}" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{{global_asset("template/assets/vendor/css/theme-default.css")}}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{global_asset("template/assets/css/demo.css")}}" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{{global_asset("template/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css")}}" />
+
+    <!-- Page CSS -->
+    <!-- Page -->
+    <link rel="stylesheet" href="{{global_asset("template/assets/vendor/css/pages/page-auth.css")}}" />
+    <!-- Helpers -->
+    <script src="{{global_asset("template/assets/vendor/js/helpers.js")}}"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="{{global_asset("template/assets/js/config.js")}}"></script>
+  </head>
+
+  <body>
+    <!-- Content -->
+
+    <div class="container-xxl">
+      @yield('content')
+    </div>
+
+    <!-- / Content -->
+
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="{{global_asset("template/assets/vendor/libs/jquery/jquery.js")}}"></script>
+    <script src="{{global_asset("template/assets/vendor/libs/popper/popper.js")}}"></script>
+    <script src="{{global_asset("template/assets/vendor/js/bootstrap.js")}}"></script>
+    <script src="{{global_asset("template/assets/vendor/js/bootstrap.js")}}"></script>
+
+    <script src="{{global_asset("template/assets/vendor/js/bootstrap.js")}}"></script>
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+
+    <!-- Main JS -->
+    <script src="{{global_asset("template/assets/js/main.js")}}"></script>
+
+    <!-- Page JS -->
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+  </body>
 </html>
