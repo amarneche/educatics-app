@@ -53,6 +53,10 @@ class RoleSeeder extends Seeder
         Permission::firstOrCreate(['name'=>'Delete Feature']);
 
 
+        // at the very end  : 
+        $superAdmin->givePermissionTo(Permission::all());
+
+
 
 
 

@@ -12,7 +12,7 @@
         <div class="form-control-feedback">
 
             @error($name)
-                <span class="help-block">{{ $message }}</span>
+                <span class="text-danger">{{ $message }}</span>
             @enderror
         </div>
     </div>

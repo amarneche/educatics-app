@@ -1,5 +1,5 @@
 <div>
-    <div {{$attributes->merge(["class"=>"card"])}} >
+    <div {{$attributes->merge(["class"=>"card "])}} >
        @isset( $image)
        {{$image}}
        @endisset

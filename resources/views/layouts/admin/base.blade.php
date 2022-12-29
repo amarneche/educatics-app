@@ -24,7 +24,7 @@
 
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="{{ global_asset('template/assets/vendor/fonts/boxicons.css') }}" />
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <!-- Core CSS -->
     <link rel="stylesheet" href="{{ global_asset('template/assets/vendor/css/core.css') }}"
         class="template-customizer-core-css" />
@@ -44,6 +44,7 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ global_asset('template/assets/js/config.js') }}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css" integrity="sha512-wJgJNTBBkLit7ymC6vvzM1EcSWeM9mmOu+1USHaRBbHkm6W9EgM0HY27+UtUaprntaYQJF75rc8gjxllKs5OIQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -64,8 +65,10 @@
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     <!-- Content -->
+                    
 
                     <div class="container-fluid flex-grow-1 container-p-y">
+                        @yield('breadcrumb')
                         @yield('content')
                     </div>
                     <!-- / Content -->
@@ -83,7 +86,9 @@
         <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
-
+    @yield('modals')
+    @include('layouts.modals.delete')
+    @include('layouts.toasts.toasts')
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
@@ -99,11 +104,14 @@
 
     <!-- Main JS -->
     <script src="{{ global_asset('template/assets/js/main.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js" integrity="sha512-zlWWyZq71UMApAjih4WkaRpikgY9Bz1oXIW5G0fED4vk14JjGlQ1UmkGM392jEULP8jbNMiwLWdM8Z87Hu88Fw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Page JS -->
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    @include('layouts.toasts.toasts')
+    @yield('scripts')
 </body>
 
 </html>

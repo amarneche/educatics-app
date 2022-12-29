@@ -85,6 +85,13 @@
 
             </ul>
         </li>
+        <!-- Tenants -->
+        <li class="menu-item @if (str_contains(Route::currentRouteName(), 'schools')) active @endif ">
+            <a href="{{ route('admin.schools.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bi bi-building"></i>
+                <div data-i18n="Analytics">{{ __('Schools') }}</div>
+            </a>
+        </li>
 
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Pages</span>
