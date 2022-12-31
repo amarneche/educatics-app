@@ -54,12 +54,13 @@ class TenantController extends Controller
         //should validate subdomain . 
         $domain = implode("."  ,array_filter([$request->domain,env('MAIN_DOMAIN')]));
         $tenant->domains()->create(['domain'=>$domain]);
-        if(auth()->user()->hasRole('tenant')){
+        
             $currentUserData= auth()->user()->getAttributes(); 
             $tenant->run(  function()use($currentUserData){
-                User::create($currentUserData);
+                $user = User::create($currentUserData);
+                $user->assignRole(['admin']);
             } );
-        }
+       
         session()->flash('success',__("Ecole crée avec success"));
         
         return redirect()->route('admin.schools.index');
