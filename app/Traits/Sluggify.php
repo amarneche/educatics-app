@@ -9,6 +9,15 @@ trait Sluggify {
         static::creating(function($model){
             $model->slug= static::makeSlug($model->title);
         });
+        static::updating(function($model){
+           $otherModel= static::where('slug', $model->slug)->first();
+           if(!is_null($otherModel)&& $otherModel->id != $model->id){
+            // make up a new slug 
+            $model->slug = static::makeSlug($model->title);
+           }
+          
+        });
+
         
     }  
 

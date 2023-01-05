@@ -24,10 +24,10 @@ class StoreCourseRequest extends FormRequest
     public function rules()
     {
         return [
-            'cover_photo'=>['file','mimes:png,jpg,jpeg'],
+            'cover_photo'=>[],
             'title'=>['required','string'],
             'price'=>['required','integer'],
-            'duration'=>['required','integer'],
+            'duration'=>['nullable','integer'],
         ];
     }
 }

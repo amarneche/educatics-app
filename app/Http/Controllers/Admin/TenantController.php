@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreTenantRequest;
 use App\Http\Requests\Admin\UpdateTenantRequest;
+use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Schema;
 
 class TenantController extends Controller
 {
@@ -58,7 +60,7 @@ class TenantController extends Controller
             $currentUserData= auth()->user()->getAttributes(); 
             $tenant->run(  function()use($currentUserData){
                 $user = User::create($currentUserData);
-                $user->assignRole(['admin']);
+                $user->assignRole([Role::ADMIN]);
             } );
        
         session()->flash('success',__("Ecole crée avec success"));

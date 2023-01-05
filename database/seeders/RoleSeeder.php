@@ -18,10 +18,14 @@ class RoleSeeder extends Seeder
     public function run()
     
     {
-        $admin=Role::firstOrCreate(['name'=>'admin']);        
-        $admin=Role::firstOrCreate(['name'=>'employee']);
-        $student=Role::firstOrCreate(['name'=>'student']);
-        $student=Role::firstOrCreate(['name'=>'teacher']);
+
+        $admin=Role::firstOrCreate(['name'=>Role::ADMIN]);        
+        $employee=Role::firstOrCreate(['name'=>Role::EMPLOYEE]);
+        $student=Role::firstOrCreate(['name'=>Role::STUDENT]);
+        $teacher=Role::firstOrCreate(['name'=>Role::TEACHER]);
+
+        //Users Permissions.
+        Permission::firstOrCreate(['name'=>'Create User']);
 
 
     }

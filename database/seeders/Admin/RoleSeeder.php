@@ -17,9 +17,9 @@ class RoleSeeder extends Seeder
     public function run()
     {
         // Seed initial Central roles and permissions.
-        $superAdmin=Role::firstOrCreate(['name'=>'super-admin']);
-        $tenant=Role::firstOrCreate(['name'=>'tenant']);
-        $admin=Role::firstOrCreate(['name'=>'reseller']);
+        $superAdmin=Role::firstOrCreate(['name'=>Role::SUPER_ADMIN]);
+        $tenant=Role::firstOrCreate(['name'=>Role::TENANT]);
+        $admin=Role::firstOrCreate(['name'=>Role::RESELLER]);
 
         //Create their permissions : 
         Permission::firstOrCreate(['name'=>'List User']);

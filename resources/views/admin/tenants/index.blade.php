@@ -30,7 +30,7 @@
                             </div>
                             <div class="float-end">
                                 <a target="_blank"
-                                    href="{{ tenant_route($school->domains->first()->domain, 'tenant.login') }}"
+                                    href="{{ tenant_route($school->domains->first()->domain, 'login') }}"
                                     class="btn btn-xs btn-secondary"> <i class="bi bi-box-arrow-in-right"></i> </a>
                                 <a href="{{ route('admin.schools.show', $school) }}"
                                     class="btn btn-xs btn-circle btn-secondary"> <i class="bi bi-eye"></i> </a>

@@ -1,5 +1,5 @@
-<!-- Modal Body -->
-<!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+
+
 <div class="modal fade" id="deleteModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
     aria-labelledby="modalTitleId" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
@@ -26,16 +26,16 @@
 </div>
 
 
-@section('scripts')
-    <script>
-        // const myModal = new bootstrap.Modal(document.getElementById('deleteModal'), options)
-    </script>
+
+
     <script>
         $(document).ready(function() {
             var deleteForm = $("#deleteForm");
+            console.log("Hello")
             $('.delete_link').on('click', function() {
+               
                 deleteForm.attr('action',$(this).attr('href'));               
             })
         });
     </script>
-@endsection
+

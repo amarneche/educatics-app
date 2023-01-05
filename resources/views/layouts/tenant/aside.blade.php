@@ -1,110 +1,82 @@
-<aside class="main-sidebar">
-    <!-- sidebar-->
-    <section class="sidebar position-relative">
-        <div class="multinav">
-            <div class="multinav-scroll" style="height: 100%;">
-                <!-- sidebar menu-->
-                <ul class="sidebar-menu" data-widget="tree">
-                    <li class="header">Dashboard & Apps</li>
-                    <li>
-                        <a href="{{ route('tenant.dashboard') }}">
-                            <i class="icon-Layout-4-blocks">
-                                <span class="path1"></span>
-                                <span class="path2"></span></i>{{ __('Dashboard') }}
-                        </a>
-                    </li>
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+    <div class="app-brand demo">
+        <a href="/" class="app-brand-link">
+            <img class="w-75" src="{{global_asset("assets/images/logo.svg")}}" alt="">
+        </a>
 
-                    
-                    {{-- Utilisateurs  --}}
-                    <li class="treeview">
-                        <a href="#">
-                            <i span class="icon-Layout-grid"><span class="path1"></span><span
-                                    class="path2"></span></i>
-                            <span>{{ __('Utilisateurs') }}</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-right pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li>
-                                <a href="{{route('tenant.users.index')}}">
-                                    <i class="icon-Commit"><span class="path1"></span><span  class="path2"></span></i>{{__("Tous les utilisateurs")}}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{route('tenant.users.create')}}">
-                                    <i class="icon-Commit"><span class="path1"></span><span  class="path2"></span></i>{{__("Créer")}}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{route('tenant.users.index')}}">
-                                    <i class="icon-Commit"><span class="path1"></span><span  class="path2"></span></i>{{__("Roles")}}
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{route('tenant.users.index')}}">
-                                    <i class="icon-Commit"><span class="path1"></span><span  class="path2"></span></i>{{__("Permissions")}}
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    {{-- End Utilisateurs --}}
-                    {{-- Courses  --}}
-                    <li class="treeview">
-                        <a href="#">
-                            <i span class="icon-Layout-grid"><span class="path1"></span><span
-                                    class="path2"></span></i>
-                            <span>{{ __('Courses') }}</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-right pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li>
-                                <a href="{{route('tenant.courses.index')}}">
-                                    <i class="icon-Commit"><span class="path1"></span><span  class="path2"></span></i>{{__("Tous les cours")}}
-                                </a>
-                            </li>
-
-                        </ul>
-                    </li>
-                    {{-- End Courses --}}
-
-
-                    <li class="treeview">
-                        <a href="#">
-                            <i span class="icon-Layout-grid"><span class="path1"></span><span
-                                    class="path2"></span></i>
-                            <span>Apps</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-right pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="extra_#"><i class="icon-Commit"><span class="path1"></span><span
-                                            class="path2"></span></i>Calendar</a></li>
-                            <li><a href="contact_#"><i class="icon-Commit"><span class="path1"></span><span
-                                            class="path2"></span></i>Contact List</a></li>
-                            <li><a href="contact_app_#"><i class="icon-Commit"><span class="path1"></span><span
-                                            class="path2"></span></i>Chat</a>
-                            </li>
-                            <li><a href="extra_#"><i class="icon-Commit"><span class="path1"></span><span
-                                            class="path2"></span></i>Todo</a></li>
-                            <li><a href="#"><i class="icon-Commit"><span class="path1"></span><span
-                                            class="path2"></span></i>Mailbox</a></li>
-                        </ul>
-                    </li>
-
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <div class="sidebar-footer">
-        <a href="javascript:void(0)" class="link" data-bs-toggle="tooltip" title="Settings"><span
-                class="icon-Settings-2"></span></a>
-        <a href="#" class="link" data-bs-toggle="tooltip" title="Email"><span class="icon-Mail"></span></a>
-        <a href="javascript:void(0)" class="link" data-bs-toggle="tooltip" title="Logout"><span
-                class="icon-Lock-overturning"><span class="path1"></span><span class="path2"></span></span></a>
+        <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+            <i class="bx bx-chevron-left bx-sm align-middle"></i>
+        </a>
     </div>
+
+    <div class="menu-inner-shadow"></div>
+
+    <ul class="menu-inner py-1">
+        <!-- Dashboard -->
+        <li class="menu-item @if (str_contains(Route::currentRouteName(), 'dashboard')) active @endif ">
+            <a href="{{ route('tenant.dashboard') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Analytics">Dashboard</div>
+            </a>
+        </li>
+
+        <!-- Users -->
+        <li class="menu-item  @if (str_contains(Route::currentRouteName(), 'users')) active open @endif  ">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-layout"></i>
+                <div data-i18n="Layouts">Users</div>
+            </a>
+
+            <ul class="menu-sub">
+                <li class="menu-item @if (str_contains(Route::currentRouteName(), 'users.index')) active @endif">
+                    <a href="{{ route('tenant.users.index') }}" class="menu-link">
+                        <div>{{ __('All Users') }}</div>
+                    </a>
+                </li>
+                <li class="menu-item @if (str_contains(Route::currentRouteName(), 'users.create')) active @endif">
+                    <a href="{{ route('tenant.users.create') }}" class="menu-link">
+                        <div>{{ __('Create new user') }}</div>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+    
+        <li class="menu-item @if (str_contains(Route::currentRouteName(), 'courses')) active @endif ">
+            <a href="{{ route('tenant.courses.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bi bi-building"></i>
+                <div data-i18n="Analytics">{{ __('Courses') }}</div>
+            </a>
+        </li>
+
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Pages</span>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Account Settings">Account Settings</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="pages-account-settings-account.html" class="menu-link">
+                        <div data-i18n="Account">Account</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="pages-account-settings-notifications.html" class="menu-link">
+                        <div data-i18n="Notifications">Notifications</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="pages-account-settings-connections.html" class="menu-link">
+                        <div data-i18n="Connections">Connections</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- Tables -->
+
+    </ul>
 </aside>

@@ -10,7 +10,7 @@
                 <button class="btn btn-primary"data-bs-target="#modal-create-user" data-bs-toggle="modal"> Create new user</button>
             </div>
         </div>
-        <div class="table-responsive text-nowrap">
+        <div class="table-responsive-sm text-nowrap">
             <table class="table table-striped table-hover	 table-borderless align-middle">
                 <thead class="table-light">
                     <tr>
@@ -39,7 +39,7 @@
                             </td>
                             <td>
                                 <div class="dropdown">
-                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrows"
                                         data-bs-toggle="dropdown">
                                         <i class="bx bx-dots-vertical-rounded"></i>
                                     </button>
