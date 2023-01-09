@@ -22,29 +22,63 @@
         </li>
       
 
-        <!-- Users -->
-        <li class="menu-item  @if (str_contains(Route::currentRouteName(), 'users')) active open @endif  ">
-          
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-layout"></i>
-                <div data-i18n="Layouts">Users</div>
-            </a>
 
+        @can('list_users')
+        <li class="menu-item @if (str_contains(Route::currentRouteName(), 'users')) active @endif ">
+            <a href="{{ route('tenant.users.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bi bi-person"></i>
+                <div data-i18n="Users">{{ __('Users') }}</div>
+            </a>
+        </li>
+        @endcan
+        @can('list_courses')
+        <li class="menu-item @if (str_contains(Route::currentRouteName(), 'courses')) active @endif ">
+            <a href="{{ route('tenant.courses.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bi bi-building"></i>
+                <div data-i18n="Courses">{{ __('Courses') }}</div>
+            </a>
+        </li>
+        @endcan
+        {{-- @can('list_enrollments') --}}
+        <li class="menu-item @if (str_contains(Route::currentRouteName(), 'enrollments')) active @endif ">
+            <a href="#" class="menu-link">
+                <i class="menu-icon tf-icons bi bi-bullseye"></i>
+                <div data-i18n="Enrollments">{{ __('Enrollments') }}</div>
+            </a>
+        </li>
+        {{-- @endcan --}}
+        {{-- @can('list_enrollments') --}}
+        <li class="menu-item @if (str_contains(Route::currentRouteName(), 'plannings')) active @endif ">
+            <a href="#" class="menu-link">
+                <i class="menu-icon tf-icons bi-calendar-check"></i>
+                <div data-i18n="Plannings">{{ __('Plannings') }}</div>
+            </a>
+        </li>
+        {{-- @endcan --}}
+        {{-- @can('list_enrollments') --}}
+        <li class="menu-item @if (str_contains(Route::currentRouteName(), 'crm')) active @endif ">
+            <a href="#" class="menu-link">
+                <i class="menu-icon tf-icons bi-bar-chart-steps"></i>
+                <div data-i18n="CRM">{{ __('CRM') }}</div>
+            </a>
+        </li>
+        {{-- @endcan --}}
+        {{-- @can('list_enrollments') --}}
+        <li class="menu-item @if (str_contains(Route::currentRouteName(), 'crm')) active @endif ">
+            <a href="#" class="menu-link">
+                <i class="menu-icon tf-icons bi bi-currency-dollar"></i>
+                <div data-i18n="Analytics">{{ __('Finances') }}</div>
+            </a>
+        </li>
+        {{-- @endcan --}}
+
+
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bi bi-gear"></i>
+                <div data-i18n="Settings">{{__("Settings")}}</div>
+            </a>
             <ul class="menu-sub">
-                @can('list_users')
-                <li class="menu-item @if (str_contains(Route::currentRouteName(), 'users.index')) active @endif">
-                    <a href="{{ route('tenant.users.index') }}" class="menu-link">
-                        <div>{{ __('All Users') }}</div>
-                    </a>
-                </li>
-                @endcan
-                @can('create',App\Models\User::class)
-                <li class="menu-item @if (str_contains(Route::currentRouteName(), 'users.create')) active @endif">
-                    <a href="{{ route('tenant.users.create') }}" class="menu-link">
-                        <div>{{ __('Create new user') }}</div>
-                    </a>
-                </li>
-                @endcan
                 @can('list_roles')
                 <li class="menu-item @if (str_contains(Route::currentRouteName(), 'users.create')) active @endif">
                     <a href="#" class="menu-link">
@@ -59,40 +93,19 @@
                     </a>
                 </li>
                 @endcan
-
-            </ul>
-        </li>
-        @can('list_courses')
-        <li class="menu-item @if (str_contains(Route::currentRouteName(), 'courses')) active @endif ">
-            <a href="{{ route('tenant.courses.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bi bi-building"></i>
-                <div data-i18n="Analytics">{{ __('Courses') }}</div>
-            </a>
-        </li>
-        @endcan
-
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Pages</span>
-        </li>
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Account Settings</div>
-            </a>
-            <ul class="menu-sub">
                 <li class="menu-item">
-                    <a href="pages-account-settings-account.html" class="menu-link">
-                        <div data-i18n="Account">Account</div>
+                    <a href="#" class="menu-link">
+                        <div data-i18n="Account">{{__("Classrooms")}}</div>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="pages-account-settings-notifications.html" class="menu-link">
-                        <div data-i18n="Notifications">Notifications</div>
+                    <a href="#" class="menu-link">
+                        <div data-i18n="Notifications">{{__("App Setting")}}</div>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="pages-account-settings-connections.html" class="menu-link">
-                        <div data-i18n="Connections">Connections</div>
+                    <a href="#" class="menu-link">
+                        <div data-i18n="Connections">{{__("Integrations")}}</div>
                     </a>
                 </li>
             </ul>

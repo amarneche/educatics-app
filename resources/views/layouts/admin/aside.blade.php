@@ -23,29 +23,72 @@
         </li>
         @endcan
 
-        <!-- Users -->
-        @can('list_users')
-        <li class="menu-item  @if (str_contains(Route::currentRouteName(), 'users')) active open @endif  ">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-layout"></i>
-                <div data-i18n="Layouts">Users</div>
-            </a>
 
+
+        <!-- Users  -->
+        @can('list_users')
+        <li class="menu-item @if (str_contains(Route::currentRouteName(), 'users')) active @endif ">
+            <a href="{{ route('admin.users.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bi bi-person"></i>
+                <div data-i18n="Analytics">{{ __('Users') }}</div>
+            </a>
+        </li>
+        @endcan
+        {{-- End users --}}
+
+        {{-- Tenants --}}
+        @can('list_tenants')
+        <li class="menu-item @if (str_contains(Route::currentRouteName(), 'schools')) active @endif ">
+            <a href="{{ route('admin.schools.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bi bi-building"></i>
+                <div data-i18n="Analytics">{{ __('Schools') }}</div>
+            </a>
+        </li>
+        @endcan
+        {{-- End Tenants --}}
+        {{-- Pacakges --}}
+
+        {{-- @can('list_subscriptions') --}}
+        <li class="menu-item @if (str_contains(Route::currentRouteName(), 'subscriptions')) active @endif ">
+            <a href="#" class="menu-link">
+                <i class="menu-icon tf-icons bi bi-receipt"></i>
+                <div data-i18n="Packages">{{ __('Subscriptions') }}</div>
+            </a>
+        </li>
+        {{-- @endcan --}}
+
+        {{-- End Pacakges --}}
+        {{-- Pacakges --}}
+
+        @can('list_packages')
+        <li class="menu-item @if (str_contains(Route::currentRouteName(), 'packages')) active @endif ">
+            <a href="#" class="menu-link">
+                <i class="menu-icon tf-icons bi bi-box"></i>
+                <div data-i18n="Packages">{{ __('Packages') }}</div>
+            </a>
+        </li>
+        @endcan
+
+        {{-- End Pacakges --}}
+        {{-- Pacakges --}}
+
+        @can('list_features')
+        <li class="menu-item @if (str_contains(Route::currentRouteName(), 'features')) active @endif ">
+            <a href="#" class="menu-link">
+                <i class="menu-icon tf-icons bi bi-sliders2-vertical"></i>
+                <div data-i18n="Packages">{{ __('Features') }}</div>
+            </a>
+        </li>
+        @endcan
+
+        {{-- End Pacakges --}}
+
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bi bi-gear"></i>
+                <div data-i18n="Settings">Settings</div>
+            </a>
             <ul class="menu-sub">
-                @can('list_users')
-                <li class="menu-item @if (str_contains(Route::currentRouteName(), 'users.index')) active @endif">
-                    <a href="{{ route('admin.users.index') }}" class="menu-link">
-                        <div>{{ __('All Users') }}</div>
-                    </a>
-                </li>
-                @endcan
-                @can('create_user')
-                <li class="menu-item @if (str_contains(Route::currentRouteName(), 'users.create')) active @endif">
-                    <a href="{{ route('admin.users.create') }}" class="menu-link">
-                        <div>{{ __('Create new user') }}</div>
-                    </a>
-                </li>
-                @endcan
                 @can('list_roles')
                 <li class="menu-item @if (str_contains(Route::currentRouteName(), 'users.create')) active @endif">
                     <a href="#" class="menu-link">
@@ -60,45 +103,17 @@
                     </a>
                 </li>
                 @endcan
-
-            </ul>
-        </li>
-        @endcan
-
-        <!-- Tenants -->
-        @can('list_tenants')
-        <li class="menu-item @if (str_contains(Route::currentRouteName(), 'schools')) active @endif ">
-            <a href="{{ route('admin.schools.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bi bi-building"></i>
-                <div data-i18n="Analytics">{{ __('Schools') }}</div>
-            </a>
-        </li>
-        @endcan
-
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Pages</span>
-        </li>
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Account Settings</div>
-            </a>
-            <ul class="menu-sub">
                 <li class="menu-item">
-                    <a href="pages-account-settings-account.html" class="menu-link">
-                        <div data-i18n="Account">Account</div>
+                    <a href="#" class="menu-link">
+                        <div data-i18n="App Setting">{{__("App Setting")}}</div>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="pages-account-settings-notifications.html" class="menu-link">
-                        <div data-i18n="Notifications">Notifications</div>
+                    <a href="#" class="menu-link">
+                        <div data-i18n="Integrations">{{__("Integrations")}}</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="pages-account-settings-connections.html" class="menu-link">
-                        <div data-i18n="Connections">Connections</div>
-                    </a>
-                </li>
+
             </ul>
         </li>
 
