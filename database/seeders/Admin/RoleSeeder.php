@@ -30,6 +30,11 @@ class RoleSeeder extends Seeder
             'list_packages','create_package','edit_package','delete_package','show_package',
             // features : 
             'list_features','create_feature','edit_feature','delete_feature','show_feature',
+             //roles : 
+             'list_roles','create_role','edit_role','delete_role','show_role',
+             //permissions : 
+             'list_permissions','create_permission','edit_permission','delete_permission','show_permission',
+ 
 
         ];
         foreach($allPermissions as $permission){

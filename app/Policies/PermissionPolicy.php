@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Course;
+use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CoursePolicy
+class PermissionPolicy
 {
     use HandlesAuthorization;
 
@@ -18,21 +18,22 @@ class CoursePolicy
      */
     public function viewAny(User $user)
     {
-        //
-        return $user->hasPermissionTo('list_courses');
+        return $user->hasPermissionTo('list_media');
+
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Course  $course
+     * @param  \App\Models\Permission  $permission
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Course $course)
+    public function view(User $user, Permission $permission)
     {
         //
-        return $user->hasPermissionTo('show_course');
+        return $user->hasPermissionTo('show_permission');
+
     }
 
     /**
@@ -44,42 +45,43 @@ class CoursePolicy
     public function create(User $user)
     {
         //
-        return $user->hasPermissionTo('create_course');
+        return $user->hasPermissionTo('create_permission');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Course  $course
+     * @param  \App\Models\Permission  $permission
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Course $course)
+    public function update(User $user, Permission $permission)
     {
         //
-        return $user->hasPermissionTo('edit_course');
+        return $user->hasPermissionTo('edit_permission');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Course  $course
+     * @param  \App\Models\Permission  $permission
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Course $course)
+    public function delete(User $user, Permission $permission)
     {
-        return $user->hasPermissionTo('delete_course');
+        //
+        return $user->hasPermissionTo('delete_permission');
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Course  $course
+     * @param  \App\Models\Permission  $permission
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Course $course)
+    public function restore(User $user, Permission $permission)
     {
         //
     }
@@ -88,10 +90,10 @@ class CoursePolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Course  $course
+     * @param  \App\Models\Permission  $permission
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Course $course)
+    public function forceDelete(User $user, Permission $permission)
     {
         //
     }

@@ -24,32 +24,52 @@
 
         <!-- Users -->
         <li class="menu-item  @if (str_contains(Route::currentRouteName(), 'users')) active open @endif  ">
+          
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
                 <div data-i18n="Layouts">Users</div>
             </a>
 
             <ul class="menu-sub">
+                @can('list_users')
                 <li class="menu-item @if (str_contains(Route::currentRouteName(), 'users.index')) active @endif">
                     <a href="{{ route('tenant.users.index') }}" class="menu-link">
                         <div>{{ __('All Users') }}</div>
                     </a>
                 </li>
+                @endcan
+                @can('create',App\Models\User::class)
                 <li class="menu-item @if (str_contains(Route::currentRouteName(), 'users.create')) active @endif">
                     <a href="{{ route('tenant.users.create') }}" class="menu-link">
                         <div>{{ __('Create new user') }}</div>
                     </a>
                 </li>
+                @endcan
+                @can('list_roles')
+                <li class="menu-item @if (str_contains(Route::currentRouteName(), 'users.create')) active @endif">
+                    <a href="#" class="menu-link">
+                        <div>{{ __('Roles') }}</div>
+                    </a>
+                </li>
+                @endcan
+                @can('list_permissions')
+                <li class="menu-item @if (str_contains(Route::currentRouteName(), 'users.create')) active @endif">
+                    <a href="#" class="menu-link">
+                        <div>{{ __('Permissions') }}</div>
+                    </a>
+                </li>
+                @endcan
 
             </ul>
         </li>
-    
+        @can('list_courses')
         <li class="menu-item @if (str_contains(Route::currentRouteName(), 'courses')) active @endif ">
             <a href="{{ route('tenant.courses.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bi bi-building"></i>
                 <div data-i18n="Analytics">{{ __('Courses') }}</div>
             </a>
         </li>
+        @endcan
 
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Pages</span>
