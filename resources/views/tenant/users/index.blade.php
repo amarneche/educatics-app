@@ -48,9 +48,9 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="triggerId">
-                                                <a class="dropdown-item"
-                                                    href="{{ route('tenant.users.show', $user) }}">{{ __('View') }}</a>
-                                                <a class="dropdown-item " href="">{{ __('Delete') }}</a>
+                                                @can("view",$user) <a class="dropdown-item"  href="{{ route('tenant.users.show', $user) }}">{{ __('View') }}</a>    @endcan
+                                                @can('update',$user) <a href="{{route('tenant.users.edit', $user)}}" class="dropdown-item">{{__("Edit")}}</a> @endcan
+                                                @can('delete',$user) <a class="dropdown-item delete_link" data-bs-toggle="modal" data-bs-target="#deleteModal" >{{ __('Delete') }}</a>  @endcan
                                             </div>
                                         </div>
                                     </td>

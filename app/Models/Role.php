@@ -22,7 +22,7 @@ class Role extends SpatieRole
     public static function getDefaultRole(){
         // check where the request is coming from ! 
         if(is_null(tenant())){
-            return static::SUPER_ADMIN;
+            return static::TENANT;
         }
         else {
             return static::STUDENT;

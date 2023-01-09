@@ -7,7 +7,9 @@
                 <p class="text-primary fw-bold">{{ __('Courses') }}</p>
             </div>
             <div class="card-toolbar">
-                <a href="{{ route('tenant.courses.create') }}" class="btn btn-primary">Create</a>
+                @can('create', App\Models\Course::class)
+                    <a href="{{ route('tenant.courses.create') }}" class="btn btn-primary">Create</a>
+                @endcan
             </div>
         </div>
 
@@ -49,14 +51,23 @@
                                             <i class="bx bx-dots-vertical-rounded"></i>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="triggerId">
-                                            <a class="dropdown-item"
-                                                href="{{ route('tenant.courses.show', $course) }}">{{ __('View') }}</a>
-                                            <a class="dropdown-item"
-                                                href="{{ route('tenant.courses.edit', $course) }}">{{ __('Edit') }}</a>
-                                            <a class="dropdown-item delete_link"
-                                                href="{{ route('tenant.courses.destroy', $course) }}"
-                                                data-bs-target="#deleteModal"
-                                                data-bs-toggle="modal">{{ __('Delete') }}</a>
+                                            @can('view', $course)
+                                                <a class="dropdown-item" href="{{ route('tenant.courses.show', $course) }}">
+                                                    {{ __('View') }}
+                                                </a>
+                                            @endcan
+                                            @can('update', $course)
+                                                <a class="dropdown-item" href="{{ route('tenant.courses.edit', $course) }}">
+                                                    {{ __('Edit') }}
+                                                </a>
+                                            @endcan
+                                            @can('delete', $course)
+                                                <a class="dropdown-item delete_link"
+                                                    href="{{ route('tenant.courses.destroy', $course) }}"
+                                                    data-bs-target="#deleteModal" data-bs-toggle="modal">
+                                                    {{ __('Delete') }}
+                                                </a>
+                                            @endcan
 
                                         </div>
                                     </div>
@@ -81,5 +92,7 @@
 @endsection
 
 @section('modals')
-    @include('tenant.modals.create-course')
+    @can('create', App\Models\Course::class)
+        @include('tenant.modals.create-course')
+    @endcan
 @endsection

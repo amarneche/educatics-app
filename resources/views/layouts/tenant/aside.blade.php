@@ -13,12 +13,14 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
+        
         <li class="menu-item @if (str_contains(Route::currentRouteName(), 'dashboard')) active @endif ">
             <a href="{{ route('tenant.dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
         </li>
+      
 
         <!-- Users -->
         <li class="menu-item  @if (str_contains(Route::currentRouteName(), 'users')) active open @endif  ">

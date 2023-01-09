@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Tenant;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class StoreCourseRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class StoreCourseRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Gate::allows('create',Course::class);
     }
 
     /**

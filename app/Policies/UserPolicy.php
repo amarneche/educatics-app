@@ -2,11 +2,10 @@
 
 namespace App\Policies;
 
-use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class TenantPolicy
+class UserPolicy
 {
     use HandlesAuthorization;
 
@@ -18,22 +17,20 @@ class TenantPolicy
      */
     public function viewAny(User $user)
     {
-        //
-
-        return $user->hasPermissionTo('list_tenants');
+        return $user->hasPermissionTo('list_users');
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Tenant  $tenant
+     * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Tenant $tenant)
+    public function view(User $user, User $model)
     {
-        //
-        return $user->hasPermissionTo('show_tenant') ||    $tenant->owner_id==$user->id;
+        
+        return $user->hasPermissionTo("show_user")  || $user->id == $model->id;
     }
 
     /**
@@ -45,59 +42,57 @@ class TenantPolicy
     public function create(User $user)
     {
         //
-        return $user->hasPermissionTo('create_tenant');
+        return $user->hasPermissionTo('create_user');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Tenant  $tenant
+     * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Tenant $tenant)
+    public function update(User $user, User $model)
     {
         //
-        return $user->hasPermissionTo('edit_tenant') || $user->id == $tenant->owner_id ;
-
+        
+        return $user->hasPermissionTo('edit_user') || $user->id == $model->id;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Tenant  $tenant
+     * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Tenant $tenant)
+    public function delete(User $user, User $model)
     {
         //
-        return $user->hasPermissionTo('delete_tenant') || $user->id == $tenant->owner_id ;
+        return $user->hasPermissionTo('delete_user');
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Tenant  $tenant
+     * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Tenant $tenant)
+    public function restore(User $user, User $model)
     {
         //
-        return $user->hasPermissionTo('restore_tenant') || $user->id == $tenant->owner_id ;
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Tenant  $tenant
+     * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Tenant $tenant)
+    public function forceDelete(User $user, User $model)
     {
         //
-        return $user->hasPermissionTo('force_delete_tenant') || $user->id == $tenant->owner_id ;
     }
 }

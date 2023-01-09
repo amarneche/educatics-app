@@ -3,7 +3,9 @@
 namespace App\Http\Requests\Tenant;
 
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 
 class StoreUserRequest extends FormRequest
@@ -18,7 +20,7 @@ class StoreUserRequest extends FormRequest
     public function authorize()
     {
         // check is user can create and if Tenant has not reached it's quota
-        return true;
+        return Gate::allows('create',User::class);
     }
 
     /**

@@ -17,7 +17,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users =User::all();
+        $this->authorize('list_users');
+        $users =User::paginate(25);
         return view('admin.users.index', compact('users'));
     }
 
@@ -28,6 +29,7 @@ class UsersController extends Controller
      */
     public function create()
     {
+        $this->authorize('create',User::class);
         return view('admin.users.create');
     }
 
@@ -39,8 +41,9 @@ class UsersController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
+        $this->authorize('create',User::class);
         $user=User::create($request->validated());
-        $user->roles()->sync($request->role);
+        $user->syncRoles([$request->role]);
         session()->flash('success', __('User created successfully'));
         return redirect()->route('admin.users.index');
         
@@ -55,6 +58,7 @@ class UsersController extends Controller
     public function show(User $user)
     {
         //
+        $this->authorize('view',$user);
         return view('admin.users.show',compact('user'));
     }
 
@@ -66,6 +70,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
+        $this->authorize('update',$user);
         return view('admin.users.edit', compact('user'));
     }
 
@@ -79,8 +84,12 @@ class UsersController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         //
-        $user->update($request->validated());
-        session()->flash('success',__("Utilisateur met a jour"));
+        $this->authorize('update',$user);
+        $user->syncRoles([$request->role]);    
+
+        $user->update($request->all());
+
+        session()->flash('success',__("User information updated"));
         return redirect()->back();
     }
 
@@ -93,6 +102,7 @@ class UsersController extends Controller
     public function destroy(User $user)
     {
         //
+        $this->authorize('delete',$user);
         try {
             $user->delete();
             session()->flush('success',__('User deleted successfully'));

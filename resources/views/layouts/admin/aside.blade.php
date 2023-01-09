@@ -14,14 +14,17 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
+        @can('access_dashboard')
         <li class="menu-item @if (str_contains(Route::currentRouteName(), 'dashboard')) active @endif ">
             <a href="{{ route('admin.dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
         </li>
+        @endcan
 
         <!-- Users -->
+        @can('list_users')
         <li class="menu-item  @if (str_contains(Route::currentRouteName(), 'users')) active open @endif  ">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
@@ -29,26 +32,34 @@
             </a>
 
             <ul class="menu-sub">
+                @can('list_users')
                 <li class="menu-item @if (str_contains(Route::currentRouteName(), 'users.index')) active @endif">
                     <a href="{{ route('admin.users.index') }}" class="menu-link">
                         <div>{{ __('All Users') }}</div>
                     </a>
                 </li>
+                @endcan
+                @can('create_user')
                 <li class="menu-item @if (str_contains(Route::currentRouteName(), 'users.create')) active @endif">
                     <a href="{{ route('admin.users.create') }}" class="menu-link">
                         <div>{{ __('Create new user') }}</div>
                     </a>
                 </li>
+                @endcan
 
             </ul>
         </li>
+        @endcan
+
         <!-- Tenants -->
+        @can('list_tenants')
         <li class="menu-item @if (str_contains(Route::currentRouteName(), 'schools')) active @endif ">
             <a href="{{ route('admin.schools.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bi bi-building"></i>
                 <div data-i18n="Analytics">{{ __('Schools') }}</div>
             </a>
         </li>
+        @endcan
 
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Pages</span>

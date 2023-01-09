@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class UpdateTenantRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class UpdateTenantRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Gate::allows('update',$this->tenant);
     }
 
     /**

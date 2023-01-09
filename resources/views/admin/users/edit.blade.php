@@ -2,7 +2,7 @@
 
 @section('content')
 <form action="{{route('admin.users.update',$user)}}" method="post">
-    @method('PATCH')
+    @method('patch')
     @csrf
     <div class="card">
         <div class="card-header">

@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\MySchoolsScope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
 use Stancl\Tenancy\Database\Models\Tenant as BaseTenant;
 use Stancl\Tenancy\Contracts\TenantWithDatabase;
 use Stancl\Tenancy\Database\Concerns\HasDatabase;
@@ -20,6 +23,24 @@ class Tenant extends BaseTenant implements TenantWithDatabase
         ];
     }
 
+    //scope of My Tenants: Tenant::all() == Tenant::myTenants(); either owner == or all incase i'm admin.
+    
+    // public static function booted(){
+    //     static::addGlobalScope(new MySchoolsScope);
+    // }
+        /**
+     * Scope a query to only include users of a given type.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  mixed  $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeMyTenants(Builder $query){
+        
+        if(Auth::check() && ! Auth::user()->hasRole([Role::SUPER_ADMIN]))
+            return $query->where('data->owner_id',Auth::user()->id);
+        
+    }
 
     public function users(){
        

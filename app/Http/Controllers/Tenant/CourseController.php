@@ -19,6 +19,7 @@ class CourseController extends Controller
     public function index()
     {
         //
+        $this->authorize("list_courses");
         $courses= Course::orderBy('created_at','desc')->paginate(10);
         $courses=Course::filter();
         return view('tenant.courses.index' ,compact('courses'));
@@ -32,6 +33,7 @@ class CourseController extends Controller
     public function create()
     {
         //
+        $this->authorize('create',Course::class);
         $course =Course::create(['title'=>'Draft Course']);
         return redirect()->route('tenant.courses.edit',$course);
         return view('tenant.courses.create');
@@ -46,7 +48,7 @@ class CourseController extends Controller
     public function store(StoreCourseRequest $request)
     {
         //
-
+        $this->authorize('create',Course::class);
         $course =Course::create($request->all());
         //assign categories 
         
@@ -67,6 +69,7 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
+        $this->authorize('view',$course);
         return view('tenant.courses.show', compact('course'));
     }
 
@@ -78,7 +81,7 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
-
+        $this->authorize('update',$course);
 
         return view('tenant.courses.edit', compact('course'));
     }
@@ -93,6 +96,7 @@ class CourseController extends Controller
     public function update(Request $request, Course $course)
     {
         //
+        $this->authorize('update',$course);
         $course->update(  $request->all()  );
         if(isset($request->cover_photo)){
             $path =$request->cover_photo;  
@@ -113,6 +117,7 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         //
+        $this->authorize('delete',$course);
         $course->delete();
         session()->flash('success', __("Course deleted successfully"));
         return redirect()->route('tenant.courses.index');

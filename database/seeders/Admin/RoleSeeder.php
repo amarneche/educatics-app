@@ -15,43 +15,49 @@ class RoleSeeder extends Seeder
      * @return void
      */
     public function run()
+    
     {
+        $allPermissions = [
+            //dashboard ? 
+            'access_dashboard',
+            //users : 
+            'list_users','create_user','edit_user','delete_user','show_user',
+            //tenants  : 
+            'list_tenants','create_tenant','edit_tenant','delete_tenant','show_tenant',
+            //domains : 
+            'list_domains','create_domain','edit_domain','delete_domain','show_domain',
+            //packages : 
+            'list_packages','create_package','edit_package','delete_package','show_package',
+            // features : 
+            'list_features','create_feature','edit_feature','delete_feature','show_feature',
+
+        ];
+        foreach($allPermissions as $permission){
+            Permission::firstOrCreate(['name'=>$permission]);
+        }
+        $tenantPermissions=[
+            'access_dashboard',
+
+            'list_tenants',
+            'create_tenant',
+            'edit_tenant',
+            'delete_tenant',            
+
+            'list_domains',
+            'create_domain',
+            'edit_domain',
+            'delete_domain',
+            'show_domain',
+            
+        ];
+
+
         // Seed initial Central roles and permissions.
         $superAdmin=Role::firstOrCreate(['name'=>Role::SUPER_ADMIN]);
         $tenant=Role::firstOrCreate(['name'=>Role::TENANT]);
         $admin=Role::firstOrCreate(['name'=>Role::RESELLER]);
 
-        //Create their permissions : 
-        Permission::firstOrCreate(['name'=>'List User']);
-        Permission::firstOrCreate(['name'=>'Create User']);
-        Permission::firstOrCreate(['name'=>'Show User']);
-        Permission::firstOrCreate(['name'=>'Update User']);
-        Permission::firstOrCreate(['name'=>'Delete User']);
-
-        Permission::firstOrCreate(['name'=>'List Tenant']);
-        Permission::firstOrCreate(['name'=>'Create Tenant']);
-        Permission::firstOrCreate(['name'=>'Show Tenant']);
-        Permission::firstOrCreate(['name'=>'Update Tenant']);
-        Permission::firstOrCreate(['name'=>'Delete Tenant']);
-        
-        Permission::firstOrCreate(['name'=>'List Domain']);
-        Permission::firstOrCreate(['name'=>'Create Domain']);
-        Permission::firstOrCreate(['name'=>'Show Domain']);
-        Permission::firstOrCreate(['name'=>'Update Domain']);
-        Permission::firstOrCreate(['name'=>'Delete Domain']);
-        
-        Permission::firstOrCreate(['name'=>'List Package']);
-        Permission::firstOrCreate(['name'=>'Create Package']);
-        Permission::firstOrCreate(['name'=>'Show Package']);
-        Permission::firstOrCreate(['name'=>'Update Package']);
-        Permission::firstOrCreate(['name'=>'Delete Package']);
-        
-        Permission::firstOrCreate(['name'=>'List Feature']);
-        Permission::firstOrCreate(['name'=>'Create Feature']);
-        Permission::firstOrCreate(['name'=>'Show Feature']);
-        Permission::firstOrCreate(['name'=>'Update Feature']);
-        Permission::firstOrCreate(['name'=>'Delete Feature']);
-
+        $tenant->givePermissionTo($tenantPermissions);
 
         // at the very end  : 
         $superAdmin->givePermissionTo(Permission::all());
