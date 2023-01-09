@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Course;
+use App\Models\Domain;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CoursePolicy
+class DomainPolicy
 {
     use HandlesAuthorization;
 
@@ -18,21 +18,21 @@ class CoursePolicy
      */
     public function viewAny(User $user)
     {
-        //
-        return $user->hasPermissionTo('list_courses');
+        
+        return $user->hasPermissionTo('list_domains');
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Course  $course
+     * @param  \App\Models\Domain  $domain
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Course $course)
+    public function view(User $user, Domain $domain)
     {
-        //
-        return $user->hasPermissionTo('show_course');
+
+        return $user->hasPermissionTo('show_domain') || $domain->tenant->owner_id==$user->id;
     }
 
     /**
@@ -43,55 +43,58 @@ class CoursePolicy
      */
     public function create(User $user)
     {
-        //
-        return $user->hasPermissionTo('create_course');
+        return $user->hasPermissionTo('create_domain');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Course  $course
+     * @param  \App\Models\Domain  $domain
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Course $course)
+    public function update(User $user, Domain $domain)
     {
-        //
-        return $user->hasPermissionTo('edit_course');
+        return $user->hasPermissionTo('edit_domain') || $domain->tenant->owner_id==$user->id;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Course  $course
+     * @param  \App\Models\Domain  $domain
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Course $course)
+    public function delete(User $user, Domain $domain)
     {
-        return $user->hasPermissionTo('delete_course');
+        //
+        return $user->hasPermissionTo('delete_domain') || $domain->tenant->owner_id==$user->id;
+
+
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Course  $course
+     * @param  \App\Models\Domain  $domain
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Course $course)
+    public function restore(User $user, Domain $domain)
     {
         //
+        return $user->hasPermissionTo('restore_domain') || $domain->tenant->owner_id==$user->id;
+
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Course  $course
+     * @param  \App\Models\Domain  $domain
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Course $course)
+    public function forceDelete(User $user, Domain $domain)
     {
         //
     }

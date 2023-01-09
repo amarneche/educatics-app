@@ -46,6 +46,20 @@
                     </a>
                 </li>
                 @endcan
+                @can('list_roles')
+                <li class="menu-item @if (str_contains(Route::currentRouteName(), 'users.create')) active @endif">
+                    <a href="#" class="menu-link">
+                        <div>{{ __('Roles') }}</div>
+                    </a>
+                </li>
+                @endcan
+                @can('list_permissions')
+                <li class="menu-item @if (str_contains(Route::currentRouteName(), 'users.create')) active @endif">
+                    <a href="#" class="menu-link">
+                        <div>{{ __('Permissions') }}</div>
+                    </a>
+                </li>
+                @endcan
 
             </ul>
         </li>
