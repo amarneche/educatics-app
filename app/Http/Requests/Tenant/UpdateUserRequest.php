@@ -5,6 +5,7 @@ namespace App\Http\Requests\Tenant;
 use App\Models\Role;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule ;
 
 class UpdateUserRequest extends FormRequest
@@ -16,7 +17,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return   Gate::allows('update', $this->user );
     }
 
     /**
@@ -30,7 +31,7 @@ class UpdateUserRequest extends FormRequest
             'first_name' =>['required',],
             'last_name' =>['required',],
             'email' =>['required','unique:users,id,'.$this->user->id],
-            'password' =>['confirmed'],
+            'password' =>['nullable','confirmed'],
             'phone' =>['',],
             'role'=>[Rule::in(Role::all()->pluck('name'))]
         ];

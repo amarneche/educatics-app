@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class UpdateDomainRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class UpdateDomainRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Gate::allows('update',$this->domain);
     }
 
     /**

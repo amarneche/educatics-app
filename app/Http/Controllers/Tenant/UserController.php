@@ -18,8 +18,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-
+        $this->authorize('list_users');
+        $users = User::with('roles')->paginate(15);
         return view('tenant.users.index',compact('users'));
     }
 
@@ -30,7 +30,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('create',User::class);
         return view('tenant.users.create');
     }
 
@@ -42,6 +42,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
+        $this->authorize('create',User::class);
         $userData=$request->validated();
         $userData['password'] = Hash::make($request->password);
         $user =User::create($userData);
@@ -59,7 +60,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        $this->authorize('view',$user);
         return view('tenant.users.show',compact('user'));
     }
 
@@ -71,7 +72,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $this->authorize('update',$user);
         return view('tenant.users.edit',compact('user'));
     }
 
@@ -84,10 +85,10 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        //
-        $user->syncRoles(['admin']);
-        $user->update($request->validated());
-
+        $this->authorize('update',$user);
+        $user->syncRoles([$request->role]);
+        $data= array_filter($request->all(),fn($item) => !is_null($item));
+        $user->update($data);
         session()->flash('success',__("Successfuly updated user"));
         return redirect()->back();
     }
@@ -100,7 +101,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $this->authorize('delete',$user);
         $user->delete();
         return redirect()->route('tenant.users.index');
     }

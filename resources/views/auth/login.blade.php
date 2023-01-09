@@ -5,25 +5,22 @@
         <div class="authentication-inner">
             <!-- Register -->
             <div class="card">
-                <div class="card-body">
+                <div class="card-body ">
                     <!-- Logo -->
-                    <div class="app-brand justify-content-center">
-                        <a href="/" class="app-brand-link gap-2">
-                            <span class="app-brand-logo">
-                                <strong>SVG </strong>
-                            </span>
+                    <div class="app-brand d-flex justify-content-center">
+                        <a href="/" class="app-brand-link">
+                            <img class="w-100" src="{{ global_asset('assets/images/logo.svg') }}" alt="">
 
-                            <span class="app-brand-text demo text-body fw-bolder">Educatics</span>
                         </a>
                     </div>
                     <!-- /Logo -->
                     <h4 class="mb-2">{{ __('Welcome to :name', ['name' => 'Educatics']) }} ! 👋</h4>
 
-                    <form id="formAuthentication" class="mb-3" action="{{ route('tenant.login') }}" method="POST">
+                    <form id="formAuthentication" class="mb-3" action="{{ route('login') }}" method="POST">
                         @csrf @method('post')
                         <div class="mb-3">
                             <label for="email" class="form-label">{{ __('Email') }}</label>
-                            <input type="text" class="form-control @error('email') is-invalid @enderror" id="email"
+                            <input type="text" value="{{old('email',"")}}" class="form-control @error('email') is-invalid @enderror" id="email"
                                 name="email" placeholder="{{ __('Enter your email address') }}" autofocus />
                             @error('email')
                                 <div class="invalid-feedback">
@@ -34,7 +31,7 @@
                         <div class="mb-3 form-password-toggle">
                             <div class="d-flex justify-content-between">
                                 <label class="form-label" for="password">{{ __('Password') }}</label>
-                                <a href="{{ route('tenant.password.request') }}">
+                                <a href="{{ route('password.request') }}">
                                     <small>{{ __('Forgot Password?') }}</small>
                                 </a>
                             </div>
@@ -61,10 +58,10 @@
                         </div>
                     </form>
 
-                    @if (Route::has('tenant.register'))
+                    @if (Route::has('register'))
                         <p class="text-center">
                             <span>{{ __('New on our platform?') }}</span>
-                            <a href="{{ route('tenant.register') }}">
+                            <a href="{{ route('register') }}">
                                 <span>{{ __('Create an account') }}</span>
                             </a>
                         </p>

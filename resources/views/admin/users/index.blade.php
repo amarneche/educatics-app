@@ -10,7 +10,7 @@
                 <button class="btn btn-primary"data-bs-target="#modal-create-user" data-bs-toggle="modal"> Create new user</button>
             </div>
         </div>
-        <div class="table-responsive text-nowrap">
+        <div class="table-responsive-sm text-nowrap">
             <table class="table table-striped table-hover	 table-borderless align-middle">
                 <thead class="table-light">
                     <tr>
@@ -39,14 +39,14 @@
                             </td>
                             <td>
                                 <div class="dropdown">
-                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown">
-                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                    </button>
+                                    <a class="btn p-0 dropdown-toggle hide-arrow" type="button" id="triggerId"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                </a>
                                     <div class="dropdown-menu">
-                                        <a href="{{route('admin.users.edit',$user)}}" class="dropdown-item">{{__("Edit")}}</a>
-                                        <a href="{{route('admin.users.show',$user)}}" class="dropdown-item">{{__("View")}}</a>
-                                        <a href="{{route('admin.users.destroy',$user)}}" class="dropdown-item">{{__("Delete")}}</a>
+                                        @can("update",$user) <a href="{{route('admin.users.edit',$user)}}" class="dropdown-item">{{__("Edit")}}</a> @endcan
+                                        @can("view",$user)<a href="{{route('admin.users.show',$user)}}" class="dropdown-item">{{__("View")}}</a>  @endcan 
+                                        @can("delete",$user)<a href="{{route('admin.users.destroy',$user)}}" class="dropdown-item">{{__("Delete")}}</a> @endcan
                                     </div>
                                 </div>
                             </td>
@@ -58,8 +58,13 @@
 
                 </tfoot>
             </table>
-        </div>
 
+        </div>
+        <div class="table-footer">
+            <div class="pagination">
+                {{$users->links()}}
+            </div>
+        </div>
     </div>
 @endsection
 

@@ -21,7 +21,10 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 | Feel free to customize them however you want. Good luck!
 |
 */
+Route::group([ 'middleware'=>['web',InitializeTenancyByDomainOrSubdomain::class,PreventAccessFromCentralDomains::class]],function(){
+    Auth::routes(['register'=>true ,'verify'=>true]);
 
+});
 
 
 Route::group([
@@ -30,19 +33,21 @@ Route::group([
             ],
     function(){
         // Auth routes & publicly accessible
-        Auth::routes(['register'=>false ,'verify'=>true]);
+       
         Route::get('/', function () {
             return redirect('/dashboard');
         });
         //Require auth :
 
-        Route::group(['as'=>'tenant.','prefix' =>'/' ,    
+        Route::group(['prefix' =>'/' ,    
             'middleware'=>['auth',InitializeTenancyByDomainOrSubdomain::class,PreventAccessFromCentralDomains::class],
             'namespace'=>'App\Http\Controllers\Tenant'
     ]  ,function(){
             Route::get('/dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
             Route::resource('users',UserController::class);
             Route::resource('courses',CourseController::class);
+            Route::post('media/upload',[App\Http\Controllers\Tenant\MediaController::class,'upload'])->name('media.upload');
+            Route::resource('media', MediaController::class);
 
             
         } );

@@ -12,18 +12,20 @@
                 <div class="modal-body overflow-scroll overflow-x-hidden">
                     <div class="row">
                         <div class="col-md-12">
-                            <x-form.select :label="__('Selectionner le role:')"  name="role">
-                                <x-slot:slot>
-                                   @foreach($component->getUserRoles() as $role) 
-                                    <option value="{{$role}}">{{__($role)}}</option>
-                                   @endforeach
-                                </x-slot>
-                            </x-form.select>
+                            <div class="mb-3">
+                                <label for="role" class="form-label">{{__("Roole")}}</label>
+                                <select class="form-select  " name="role" id="role">
+                                    @foreach(App\Models\Role::all() as $role)
+                                        <option value="{{$role->name}}"> {{__($role->name)}}</option>
+                                    @endforeach
+       
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <x-form.input name="last_name" :value="old('last_name')" :label="__('Nom')" />
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <x-form.input name="first_name" type="text" :value="old('first_name')" :label="__('Prénom')" />
                         </div>
                         <div class="col-md-12">

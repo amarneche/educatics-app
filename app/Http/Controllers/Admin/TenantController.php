@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreTenantRequest;
 use App\Http\Requests\Admin\UpdateTenantRequest;
+use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Schema;
 
 class TenantController extends Controller
 {
@@ -19,8 +21,9 @@ class TenantController extends Controller
      */
     public function index()
     {
-        $schools=Tenant::with('domains')->get();
-
+        $this->authorize('list_tenants');
+        $schools=Tenant::myTenants()->with('domains')->get();
+        
         return view('admin.tenants.index',compact('schools'));
 
     }
@@ -33,6 +36,7 @@ class TenantController extends Controller
     public function create()
     {
         //
+        $this->authorize('create',Tenant::class);
         return view('admin.tenants.create');
     }
 
@@ -45,6 +49,7 @@ class TenantController extends Controller
     public function store(StoreTenantRequest $request)
     {
         //
+        $this->authorize('create',Tenant::class);
         $data =$request->validated();
         $data['owner_id']=auth()->user()->id;
         $data['status']="active";
@@ -54,12 +59,13 @@ class TenantController extends Controller
         //should validate subdomain . 
         $domain = implode("."  ,array_filter([$request->domain,env('MAIN_DOMAIN')]));
         $tenant->domains()->create(['domain'=>$domain]);
-        if(auth()->user()->hasRole('tenant')){
-            $currentUserData= auth()->user()->getAttributes(); 
-            $tenant->run(  function()use($currentUserData){
-                User::create($currentUserData);
+        
+        $currentUserData= auth()->user()->getAttributes(); 
+        $tenant->run(  function()use($currentUserData){
+                $user = User::create($currentUserData);
+                $user->assignRole([Role::ADMIN]);
             } );
-        }
+       
         session()->flash('success',__("Ecole crée avec success"));
         
         return redirect()->route('admin.schools.index');
@@ -75,6 +81,7 @@ class TenantController extends Controller
     public function show(Tenant $school)
     {
         //
+        $this->authorize('view',$school);
         $school->load('domains');
         return view('admin.tenants.show',compact('school'));
     }
@@ -87,6 +94,7 @@ class TenantController extends Controller
      */
     public function edit(Tenant $school)
     {
+        $this->authorize('edit', $school);
         return view('admin.tenants.edit', compact('school'));
     }
 
@@ -99,6 +107,7 @@ class TenantController extends Controller
      */
     public function update(UpdateTenantRequest $request, Tenant $school)
     {
+        $this->authorize('edit', $school);
         $school->update($request->validated());
         session()->flash('success', __("Tenants updated successfully"));
         return redirect()->back();
@@ -112,7 +121,7 @@ class TenantController extends Controller
      */
     public function destroy(Tenant $school)
     {
-
+        $this->authorize('delete', $school);
         $school->delete();
         session()->flash('success', __("'Supprimé !'"));
         return redirect()->route("admin.schools.index");

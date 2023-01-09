@@ -20,7 +20,7 @@ class TenantPolicy
     {
         //
 
-        return $user->hasPermission('list tenants');
+        return $user->hasPermissionTo('list_tenants');
     }
 
     /**
@@ -33,7 +33,7 @@ class TenantPolicy
     public function view(User $user, Tenant $tenant)
     {
         //
-        return $user->hasPermission('View Tenant') ||   $tenant->owner_id==$user->id;
+        return $user->hasPermissionTo('show_tenant') ||    $tenant->owner_id==$user->id;
     }
 
     /**
@@ -45,7 +45,7 @@ class TenantPolicy
     public function create(User $user)
     {
         //
-        return $user->hasPermissionTo('Create Tenant');
+        return $user->hasPermissionTo('create_tenant');
     }
 
     /**
@@ -58,7 +58,7 @@ class TenantPolicy
     public function update(User $user, Tenant $tenant)
     {
         //
-        return $user->hasPermission('Edit Tenant') || $user->id == $tenant->owner_id ;
+        return $user->hasPermissionTo('edit_tenant') || $user->id == $tenant->owner_id ;
 
     }
 
@@ -72,6 +72,7 @@ class TenantPolicy
     public function delete(User $user, Tenant $tenant)
     {
         //
+        return $user->hasPermissionTo('delete_tenant') || $user->id == $tenant->owner_id ;
     }
 
     /**
@@ -84,6 +85,7 @@ class TenantPolicy
     public function restore(User $user, Tenant $tenant)
     {
         //
+        return $user->hasPermissionTo('restore_tenant') || $user->id == $tenant->owner_id ;
     }
 
     /**
@@ -96,5 +98,6 @@ class TenantPolicy
     public function forceDelete(User $user, Tenant $tenant)
     {
         //
+        return $user->hasPermissionTo('force_delete_tenant') || $user->id == $tenant->owner_id ;
     }
 }

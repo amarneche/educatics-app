@@ -13,7 +13,10 @@
                 <div class="modal-body overflow-scroll overflow-x-hidden">
                     <div class="row">
                         <div class="col-md-12">
-                            <x-form.input name="cover_photo" type="file" value="" :label="__('Mettre une photo')" />
+                            <div class="mb-3">
+                                <label for="cover_photo" class="form-label">{{ __('Cover hpoto') }}</label>
+                                <input type="file" class="form-control" name="cover_photo" id="cover_photo">
+                            </div>
                         </div>
                         <div class="col-md-12">
                             <x-form.input name="title" :value="old('title')" :label="__('Titre du cours/Formation')" />
@@ -39,13 +42,13 @@
     </div>
 </form>
 @section('scripts')
-    <script src="{{ global_asset('assets/vendor_components/dropzone/dropzone.js') }}"></script>
-    <script>
-        new Dropzone($('#myDropzone')[0], {
-            autoProcessQueue: false,
-            paramName: "file"
-        })
+    <script type="text/javascript">
+        $(document).ready(function() {
+            featured = document.getElementById("cover_photo");
+            featuredPond = FilePond.create(featured);
+        });
     </script>
+
     @if ($errors->any())
         <script>
             $('document').ready(function() {

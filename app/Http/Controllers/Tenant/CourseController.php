@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Tenant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tenant\StoreCourseRequest;
 use App\Models\Course;
+use App\Models\Media;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -18,8 +19,9 @@ class CourseController extends Controller
     public function index()
     {
         //
-      
-        $courses= Course::all();
+        $this->authorize("list_courses");
+        $courses= Course::orderBy('created_at','desc')->paginate(10);
+        $courses=Course::filter();
         return view('tenant.courses.index' ,compact('courses'));
     }
 
@@ -31,6 +33,9 @@ class CourseController extends Controller
     public function create()
     {
         //
+        $this->authorize('create',Course::class);
+        $course =Course::create(['title'=>'Draft Course']);
+        return redirect()->route('tenant.courses.edit',$course);
         return view('tenant.courses.create');
     }
 
@@ -43,13 +48,14 @@ class CourseController extends Controller
     public function store(StoreCourseRequest $request)
     {
         //
-        $course =Course::create($request->validated());
-        if(isset($request->cover_photo)){
-            $path =Storage::put('public',$request->cover_photo);
-            $course->addMedia(Storage::path($path))->toMediaCollection('cover_photo');
-        }
-
+        $this->authorize('create',Course::class);
+        $course =Course::create($request->all());
+        //assign categories 
         
+        if(isset($request->cover_photo)){
+            $path =$request->cover_photo;         
+            $course->addMedia(Storage::path($path))->toMediaCollection('cover_photo');
+        }        
         session()->flash('success',__('Le cours a été crèe avec succès'));
         return redirect()->route('tenant.courses.index');
         
@@ -63,6 +69,7 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
+        $this->authorize('view',$course);
         return view('tenant.courses.show', compact('course'));
     }
 
@@ -74,6 +81,8 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
+        $this->authorize('update',$course);
+
         return view('tenant.courses.edit', compact('course'));
     }
 
@@ -87,8 +96,16 @@ class CourseController extends Controller
     public function update(Request $request, Course $course)
     {
         //
-        $course->update();
-        return redirect()->back();
+        $this->authorize('update',$course);
+        $course->update(  $request->all()  );
+        if(isset($request->cover_photo)){
+            $path =$request->cover_photo;  
+            $course->clearMediaCollection('cover_photo');     
+            $course->addMedia(Storage::path($path))->toMediaCollection('cover_photo');
+        }   
+        session()->flash('success',__("Course updated successfully"));
+        return redirect()->route('tenant.courses.edit',$course);
+        
     }
 
     /**
@@ -100,6 +117,9 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         //
+        $this->authorize('delete',$course);
         $course->delete();
+        session()->flash('success', __("Course deleted successfully"));
+        return redirect()->route('tenant.courses.index');
     }
 }

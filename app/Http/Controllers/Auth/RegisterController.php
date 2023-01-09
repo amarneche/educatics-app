@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -50,7 +54,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -64,10 +70,37 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $data['password']=Hash::make($data['password']);
+        return User::create($data);
+    }
+
+
+    public function register(Request $request)
+    {
+        $user =null;
+        try{
+            $this->validator($request->all())->validate();
+            $user = $this->create($request->all());
+            $user->assignRole([Role::getDefaultRole()]);
+            event(new Registered($user));
+    
+            $this->guard()->login($user);
+    
+            if ($response = $this->registered($request, $user)) {
+                return $response;
+            }
+    
+            return $request->wantsJson()
+                        ? new JsonResponse([], 201)
+                        : redirect($this->redirectPath());
+        }
+        catch(\Exception $e){
+            // remove user if exists
+            if(!is_null($user))
+                $user->delete();
+            return redirect()->back();
+            
+        }
+
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\OnBoarding;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OnBoarding\TenantRegistrationRequest;
+use App\Models\Role;
 use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -43,7 +44,7 @@ class RegisterTenantController extends Controller
                 "password"=>Hash::make($data['password']),
             ]);
             // assign some roles and permissions to this user :
-            $user->assignRole(['admin']);
+            $user->assignRole([Role::ADMIN]);
         }); 
 
         //redirect to the domain account.

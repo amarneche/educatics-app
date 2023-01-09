@@ -1,4 +1,4 @@
-@section('scripts')
+
     @if (session()->has('success'))
         <script>
             $(document).ready(function() {
@@ -33,4 +33,4 @@
             })
         </script>
     @endforeach
-@endsection
+

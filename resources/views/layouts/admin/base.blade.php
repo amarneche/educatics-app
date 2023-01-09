@@ -6,6 +6,7 @@
 
 <head>
     <meta charset="utf-8" />
+    <meta name="_token" content="{{csrf_token()}}"/>
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
@@ -87,8 +88,7 @@
     </div>
     <!-- / Layout wrapper -->
     @yield('modals')
-    @include('layouts.modals.delete')
-    @include('layouts.toasts.toasts')
+
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
@@ -110,8 +110,10 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    @include('layouts.toasts.toasts')
+   
     @yield('scripts')
+    @include('layouts.modals.delete')
+    @include('layouts.toasts.toasts')
 </body>
 
 </html>

@@ -22,7 +22,7 @@
                     </x-slot>
                     <x-slot:title> {{ $course->title }} </x-slot>
                         <x-slot:body>
-                            <div class="table-responsive">
+                            <div class="table-responsive-sm">
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
@@ -53,7 +53,7 @@
                                 class="fa fa-plus"></i>{{ __('Ajouter un etudiant') }} </a>
                         </x-slot>
                         <x-slot:body>
-                            <div class="table-responsive">
+                            <div class="table-responsive-sm">
                                 <table class="table table-hover">
                                     @isset($course->students)
                                     @else

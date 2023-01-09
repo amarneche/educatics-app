@@ -13,6 +13,7 @@
 @section('content')
     <div class="row ">
         @foreach ($schools as $school)
+        @can('view',$school)
             <div class="col-md-4 mb-3 ">
                 <div class="card h-100">
                     <div class="card-header">
@@ -29,11 +30,14 @@
                                 </button>
                             </div>
                             <div class="float-end">
-                                <a target="_blank"
-                                    href="{{ tenant_route($school->domains->first()->domain, 'tenant.login') }}"
-                                    class="btn btn-xs btn-secondary"> <i class="bi bi-box-arrow-in-right"></i> </a>
-                                <a href="{{ route('admin.schools.show', $school) }}"
-                                    class="btn btn-xs btn-circle btn-secondary"> <i class="bi bi-eye"></i> </a>
+                                <a target="_blank" href="{{ tenant_route($school->domains->first()->domain, 'login') }}"
+                                    class="btn btn-xs btn-secondary"> <i class="bi bi-box-arrow-in-right"></i>
+                                </a>
+
+                                    <a href="{{ route('admin.schools.show', $school) }}"
+                                        class="btn btn-xs btn-circle btn-secondary"> <i class="bi bi-eye"></i>
+                                    </a>
+
                                 <a href="{{ route('admin.schools.edit', $school) }}"
                                     class="btn btn-xs btn-circle btn-secondary"> <i class="bi bi-pen"></i> </a>
                                 <a href="{{ route('admin.schools.destroy', $school) }}"
@@ -44,6 +48,8 @@
                     </div>
                 </div>
             </div>
+        @endcan
+
         @endforeach
         @can('create', App\Models\Tenant::class)
             <div class="col-md-3 .col-sm-12  mb-3">

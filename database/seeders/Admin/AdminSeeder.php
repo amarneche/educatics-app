@@ -26,8 +26,8 @@ class AdminSeeder extends Seeder
             'password'=>Hash::make("password") ,
             'phone'=>'+213673377481',
         ]);
-        Role::firstOrCreate(['name'=>'super-admin']);
-        $baseAdmin->assignRole(['super-admin']);
+        Role::firstOrCreate(['name'=>Role::SUPER_ADMIN]);
+        $baseAdmin->assignRole([Role::SUPER_ADMIN]);
 
     }
 }
