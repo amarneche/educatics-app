@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return array_diff(Schema::getColumnListing('users'),['data']) ;
     }
+
+    public function getFullNameAttribute(){
+        return $this->first_name." ".$this->last_name;
+    }
 }
+
