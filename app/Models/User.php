@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Schema;
 use Laravel\Sanctum\HasApiTokens;
 use Stancl\VirtualColumn\VirtualColumn;
 use Spatie\Permission\Traits\HasRoles;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class User extends Authenticatable
 {
@@ -49,6 +50,11 @@ class User extends Authenticatable
 
     public function getFullNameAttribute(){
         return $this->first_name." ".$this->last_name;
+    }
+    public static function filter(){
+        return QueryBuilder::for(User::class)
+                ->allowedFilters(array_diff(Schema::getColumnListing('users'),['data']))
+                ->get();
     }
 }
 

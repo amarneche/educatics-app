@@ -10,8 +10,9 @@
                 <div class="card-toolbar">
                     <button type="button" class="btn btn-secondary" data-bs-toggle="button" aria-pressed="false"
                         autocomplete="off">{{ __('Filter') }}</button>
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-create-user">Create new
-                        user</button>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-create-user">
+                        {{__("Create a new user")}}
+                    </button>
                 </div>
             </div>
             <div class="card-body p-0 mb-5">
@@ -61,6 +62,11 @@
                     </table>
                 </div>
 
+            </div>
+            <div class="card-footer">
+               <div class="ms-auto">
+                    {{-- {{$users->links()}} --}}
+               </div>
             </div>
         </div>
 
