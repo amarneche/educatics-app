@@ -34,6 +34,8 @@ class RoleSeeder extends Seeder
              'list_roles','create_role','edit_role','delete_role','show_role',
              //permissions : 
              'list_permissions','create_permission','edit_permission','delete_permission','show_permission',
+             //Subscriptions : 
+             'list_subscriptions','create_subscription','edit_subscription','delete_subscription','show_subscription',
  
 
         ];

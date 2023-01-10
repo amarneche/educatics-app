@@ -5,7 +5,7 @@ namespace Database\Seeders\Admin;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class SubscriptionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,9 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(RoleSeeder::class);
-        $this->call(PackageSeeder::class);
-        $this->call(FeatureSeeder::class);
-        $this->call(AdminSeeder::class);
+        //
     }
 }

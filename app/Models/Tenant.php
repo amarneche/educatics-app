@@ -51,8 +51,13 @@ class Tenant extends BaseTenant implements TenantWithDatabase
     public function owner (){
         return $this->belongsTo(User::class,'owner_id');
     }
+
     public function getValidUntilFormattedAttribute(){
         if($this->valid_until)
         return $this->valid_until->format('d-M-Y');
+    }
+
+    public function subscriptions(){
+        return $this->hasMany(Subscription::class);
     }
 }

@@ -25,6 +25,14 @@ class RoleSeeder extends Seeder
             'list_users','create_user','edit_user','delete_user','show_user',
             //courses  : 
             'list_courses','create_course','edit_course','delete_course','show_course',
+            //batches  : 
+            'list_batches','create_batch','edit_batch','delete_batch','show_batch',
+            //Paymentes  : 
+            'list_payments','create_payment','edit_payment','delete_payment','show_payment',
+            //Invoiceses  : 
+            'list_invoices','create_invoice','edit_invoice','delete_invoice','show_invoice',
+            //Enrollments  : 
+            'list_enrollments','create_enrollment','edit_enrollment','delete_enrollment','show_enrollment',
             //roles : 
             'list_roles','create_role','edit_role','delete_role','show_role',
             //permissions : 

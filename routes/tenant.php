@@ -26,10 +26,12 @@ Route::group([ 'middleware'=>['web',InitializeTenancyByDomainOrSubdomain::class,
 
 });
 
-
+Route::get('/subscription/expired',function(){
+    return 'Your subscription expired';
+})->name('tenant.subscription.expired');
 Route::group([
     'as'=>'tenant.',
-    'middleware'=>['web',InitializeTenancyByDomainOrSubdomain::class,PreventAccessFromCentralDomains::class],
+    'middleware'=>['web' ,InitializeTenancyByDomainOrSubdomain::class,PreventAccessFromCentralDomains::class],
             ],
     function(){
         // Auth routes & publicly accessible
