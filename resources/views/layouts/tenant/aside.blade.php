@@ -34,7 +34,7 @@
         @can('list_courses')
         <li class="menu-item @if (str_contains(Route::currentRouteName(), 'courses')) active @endif ">
             <a href="{{ route('tenant.courses.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bi bi-building"></i>
+                <i class="menu-icon tf-icons bi bi-mortarboard"></i>
                 <div data-i18n="Courses">{{ __('Courses') }}</div>
             </a>
         </li>
