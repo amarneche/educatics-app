@@ -19,7 +19,8 @@ class UserController extends Controller
     public function index()
     {
         $this->authorize('list_users');
-        $users = User::with('roles')->paginate(15);
+        // $users = User::with('roles')->paginate(20);
+        $users= User::filter();
         return view('tenant.users.index',compact('users'));
     }
 
