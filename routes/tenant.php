@@ -27,8 +27,10 @@ Route::group([ 'middleware'=>['web',InitializeTenancyByDomainOrSubdomain::class,
 });
 
 Route::get('/subscription/expired',function(){
+    
     return 'Your subscription expired';
-})->name('tenant.subscription.expired');
+    })->name('tenant.subscription.expired');
+
 Route::group([
     'as'=>'tenant.',
     'middleware'=>['web' ,InitializeTenancyByDomainOrSubdomain::class,PreventAccessFromCentralDomains::class],
@@ -48,6 +50,7 @@ Route::group([
             Route::get('/dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
             Route::resource('users',UserController::class);
             Route::resource('courses',CourseController::class);
+            Route::resource('enrollments',EnrollmentController::class);
             Route::post('media/upload',[App\Http\Controllers\Tenant\MediaController::class,'upload'])->name('media.upload');
             Route::resource('media', MediaController::class);
 

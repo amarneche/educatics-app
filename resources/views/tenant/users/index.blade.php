@@ -33,7 +33,7 @@
                             @foreach ($users as $user)
                                 <tr>
                                     <td>{{ $user->id }}</td>
-                                    <td><img src="{{ $user->photo }}" alt="" width="40"></td>
+                                    <td><img src="{{ $user->getFirstMediaUrl('avatar') }}" alt="" width="40"></td>
                                     <td>{{ $user->first_name }}</td>
                                     <td>{{ $user->last_name }}</td>
                                     <td>{{ $user->email }}</td>
@@ -51,7 +51,9 @@
                                             <div class="dropdown-menu" aria-labelledby="triggerId">
                                                 @can("view",$user) <a class="dropdown-item"  href="{{ route('tenant.users.show', $user) }}">{{ __('View') }}</a>    @endcan
                                                 @can('update',$user) <a href="{{route('tenant.users.edit', $user)}}" class="dropdown-item">{{__("Edit")}}</a> @endcan
-                                                @can('delete',$user) <a class="dropdown-item delete_link" data-bs-toggle="modal" data-bs-target="#deleteModal" >{{ __('Delete') }}</a>  @endcan
+                                                @can('delete',$user) <a class="dropdown-item delete_link" href="{{route('tenant.users.destroy', $user)}}" data-bs-toggle="modal" data-bs-target="#deleteModal" >
+                                                    {{ __('Delete') }}</a>  
+                                                @endcan
                                             </div>
                                         </div>
                                     </td>
@@ -64,8 +66,8 @@
 
             </div>
             <div class="card-footer">
-               <div class="ms-auto">
-                    {{-- {{$users->links()}} --}}
+               <div class="float-middle">
+                    {{$users->links()}}
                </div>
             </div>
         </div>

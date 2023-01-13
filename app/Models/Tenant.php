@@ -60,4 +60,15 @@ class Tenant extends BaseTenant implements TenantWithDatabase
     public function subscriptions(){
         return $this->hasMany(Subscription::class);
     }
+    public function activeSubscriptions(){
+        return $this->subscriptions()->whereIn('status',['active' ,'trial']);
+    }
+    public function currentSubscription(){
+        return $this->subscriptions->last();
+    }
+
+    public function invoices(){
+        return $this->hasMany(Invoice::class);
+    }
+    
 }

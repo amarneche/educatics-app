@@ -26,6 +26,9 @@ Route::group(['as'=>'admin.','prefix'=>'/','namespace'=>'App\Http\Controllers\Ad
     Route::get('/dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
     Route::resource('users',UsersController::class);
     Route::resource('schools',TenantController::class);
+    Route::resource('packages',PackageController::class);
+    Route::resource('features',FeatureController::class);
+    Route::resource('subscriptions',SubscriptionController::class);
     Route::post('media/upload',[MediaController::class,'upload'])->name('media.upload');
 
 });

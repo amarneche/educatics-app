@@ -86,8 +86,12 @@ class UsersController extends Controller
         //
         $this->authorize('update',$user);
         $user->syncRoles([$request->role]);    
-
-        $user->update($request->all());
+        $data =$request->all();
+        if($request->password == null ) { 
+            unset($data['password']);
+        }
+        unset($data['password_confirmation']);
+        $user->update($data);
 
         session()->flash('success',__("User information updated"));
         return redirect()->back();

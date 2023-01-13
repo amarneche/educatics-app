@@ -2,8 +2,10 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Models\Package;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Rule;
 
 class StoreTenantRequest extends FormRequest
 {
@@ -25,7 +27,7 @@ class StoreTenantRequest extends FormRequest
     public function rules()
     {
         return [
-            'package'=>['required'],
+            'package_id'=>['required', Rule::in(Package::all()->pluck('id'))],
             'school_name' =>['required'],
             'domain' =>['required','unique:domains','alpha_num' ],
         ];

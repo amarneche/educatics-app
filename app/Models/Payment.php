@@ -12,7 +12,7 @@ class Payment extends Model
     use HasFactory;
     use VirtualColumn;
 
-
+    protected $guarded =[];
     public static function getCustomColumns(): array
     {
         return array_diff(Schema::getColumnListing('payments'),['data']) ;

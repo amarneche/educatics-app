@@ -16,16 +16,17 @@
                     </div>
                 @enderror
             @endisset
-
-
-        </div>
-        @isset($group)
+            @isset($group)
             @error($name)
                 <div class="invalid-feedback">
                     <span class="text-danger">{{ $message }}</span>
                 </div>
             @enderror
         @endisset
+
+
+        </div>
+
 
     </div>
 </div>

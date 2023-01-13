@@ -12,11 +12,11 @@
                 <div class="modal-body overflow-scroll overflow-x-hidden">
                     <div class="row">
                         <div class="col-md-12">
-                            <x-form.select :label="__('Choisir un plan:')"  name="package">
+                            <x-form.select :label="__('Choisir un plan:')"  name="package_id">
                                 <x-slot:slot>
-                                <option value="free">Gratuit</option>
-                                <option value="starter">Starter 1000 DA/mois</option>
-                                <option value="hero">Hero 2500 DA/mois</option>
+                                @foreach ($packages as $package)
+                                    <option value="{{$package->id}}">{{$package->title}}  <strong>{{$package->price}} DZD/Mois</strong>  </option>
+                                @endforeach
                                    
                                 </x-slot>
                             </x-form.select>
