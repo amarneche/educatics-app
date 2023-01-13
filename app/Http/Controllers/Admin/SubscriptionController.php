@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Tenant;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Enrollment;
+use App\Models\Subscription;
 use Illuminate\Http\Request;
 
-class EnrollmenetController extends Controller
+class SubscriptionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,9 @@ class EnrollmenetController extends Controller
      */
     public function index()
     {
-        //
+        $this->authorize('list_subscriptions');
+        $subscriptions= Subscription::orderBy('created_at','desc')->get();
+        return view('admin.subscriptions.index',compact("subscriptions"));
     }
 
     /**
@@ -42,10 +44,10 @@ class EnrollmenetController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Enrollment  $enrollment
+     * @param  \App\Models\Subscription  $subscription
      * @return \Illuminate\Http\Response
      */
-    public function show(Enrollment $enrollment)
+    public function show(Subscription $subscription)
     {
         //
     }
@@ -53,10 +55,10 @@ class EnrollmenetController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Enrollment  $enrollment
+     * @param  \App\Models\Subscription  $subscription
      * @return \Illuminate\Http\Response
      */
-    public function edit(Enrollment $enrollment)
+    public function edit(Subscription $subscription)
     {
         //
     }
@@ -65,10 +67,10 @@ class EnrollmenetController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Enrollment  $enrollment
+     * @param  \App\Models\Subscription  $subscription
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Enrollment $enrollment)
+    public function update(Request $request, Subscription $subscription)
     {
         //
     }
@@ -76,10 +78,10 @@ class EnrollmenetController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Enrollment  $enrollment
+     * @param  \App\Models\Subscription  $subscription
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Enrollment $enrollment)
+    public function destroy(Subscription $subscription)
     {
         //
     }

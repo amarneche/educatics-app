@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreTenantRequest;
 use App\Http\Requests\Admin\UpdateTenantRequest;
+use App\Models\Package;
 use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
@@ -22,9 +23,10 @@ class TenantController extends Controller
     public function index()
     {
         $this->authorize('list_tenants');
+        $packages=Package::where('status','active')->get();
         $schools=Tenant::myTenants()->with('domains')->get();
         
-        return view('admin.tenants.index',compact('schools'));
+        return view('admin.tenants.index',compact('schools','packages'));
 
     }
 
@@ -50,23 +52,52 @@ class TenantController extends Controller
     {
         //
         $this->authorize('create',Tenant::class);
-        $data =$request->validated();
-        $data['owner_id']=auth()->user()->id;
-        $data['status']="active";
-        $data["valid_until"]= Carbon::today()->addDays(30);
 
-        $tenant = Tenant::create($data);               
-        //should validate subdomain . 
-        $domain = implode("."  ,array_filter([$request->domain,env('MAIN_DOMAIN')]));
-        $tenant->domains()->create(['domain'=>$domain]);
-        
+        $package = Package::find($request->package_id);
+        $freeTrial= auth()->user()->eligibleForFreeTrial() &&   auth()->user()->isTenant();
+        $total_amount= $freeTrial ? 0 : $package->price ;
         $currentUserData= auth()->user()->getAttributes(); 
-        $tenant->run(  function()use($currentUserData){
-                $user = User::create($currentUserData);
-                $user->assignRole([Role::ADMIN]);
-            } );
-       
-        session()->flash('success',__("Ecole crée avec success"));
+        unset($currentUserData["id"]);
+        $domain = implode("."  ,array_filter([$request->domain,env('MAIN_DOMAIN')]));
+        $tenantData =$request->validated();        
+        $tenantData['owner_id']=auth()->user()->id;
+        $tenant=null;
+
+        try{
+            $tenant = Tenant::create($tenantData);     
+            $subscription=$tenant->subscriptions()->create([
+                'package_id'=>$request->package_id,
+                'start_date'=>Carbon::today(),
+                'end_date'=>Carbon::today()->addDays(30),
+                'status'=> $freeTrial ? 'trial': 'active'
+            ]); 
+    
+    
+            $invoice =$tenant->invoices()->create([
+                'total_amount'=>$total_amount ,
+                'paid_amount'=>0,
+                'due_amount'=>$total_amount,
+                'invoice_date'=>Carbon::today(),
+                'due_date'=>$freeTrial ? Carbon::today()->addDays(30) : Carbon::today()->addDays(7)
+            ]);
+            // send invoice via email. 
+            
+            //should validate subdomain .
+            $tenant->domains()->create(['domain'=>$domain]);        
+            $tenant->run(  function()use($currentUserData){
+                    $user = User::create($currentUserData);
+                    $user->assignRole([Role::ADMIN]);
+                } );
+           
+            session()->flash('success',__("Ecole crée avec success"));
+        }
+        catch(\Exception $e){
+            if(!is_null($tenant)){
+                $tenant->delete();
+                session()->flash('falure',__("Can't create LMS ".$e->getMessage()));
+
+            }
+        }
         
         return redirect()->route('admin.schools.index');
         

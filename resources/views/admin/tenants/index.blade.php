@@ -16,34 +16,34 @@
         @can('view',$school)
             <div class="col-md-4 mb-3 ">
                 <div class="card h-100">
-                    <div class="card-header">
-                        <div class="card-title">
-                            <p class="text-primary fw-bold">{{ $school->school_name }}</p>
+                    <a href="{{route("admin.schools.show",$school)}}">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <p class="text-primary fw-bold">{{ $school->school_name }}</p>
+                            </div>
+    
                         </div>
                         <div class="card-body">
-
+    
                         </div>
-                        <div class="card-footer d-flex justify-content-between mx-1 p-0">
-                            <div class="status">
-                                <button class="btn btn-xs btn-primary">
-                                    Days left <span class="badge badge-xs bg-light text-primary">12</span>
-                                </button>
-                            </div>
-                            <div class="float-end">
-                                <a target="_blank" href="{{ tenant_route($school->domains->first()->domain, 'login') }}"
-                                    class="btn btn-xs btn-secondary"> <i class="bi bi-box-arrow-in-right"></i>
+    
+    
+                    </a>
+                    <div class="card-footer">
+                        <div class="float-center">
+                            <a target="_blank" href="{{ tenant_route($school->domains?->first()->domain, 'login') }}"
+                                class="btn btn-xs btn-secondary"> <i class="bi bi-box-arrow-in-right"></i>
+                            </a>
+
+                                <a href="{{ route('admin.schools.show', $school) }}"
+                                    class="btn btn-xs btn-circle btn-secondary"> <i class="bi bi-eye"></i>
                                 </a>
 
-                                    <a href="{{ route('admin.schools.show', $school) }}"
-                                        class="btn btn-xs btn-circle btn-secondary"> <i class="bi bi-eye"></i>
-                                    </a>
-
-                                <a href="{{ route('admin.schools.edit', $school) }}"
-                                    class="btn btn-xs btn-circle btn-secondary"> <i class="bi bi-pen"></i> </a>
-                                <a href="{{ route('admin.schools.destroy', $school) }}"
-                                    class="btn btn-xs btn-circle btn-danger delete_link" data-bs-target="#deleteModal"
-                                    data-bs-toggle="modal"> <i class="bi bi-trash"></i> </a>
-                            </div>
+                            <a href="{{ route('admin.schools.edit', $school) }}"
+                                class="btn btn-xs btn-circle btn-secondary"> <i class="bi bi-pen"></i> </a>
+                            <a href="{{ route('admin.schools.destroy', $school) }}"
+                                class="btn btn-xs btn-circle btn-danger delete_link" data-bs-target="#deleteModal"
+                                data-bs-toggle="modal"> <i class="bi bi-trash"></i> </a>
                         </div>
                     </div>
                 </div>

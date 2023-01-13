@@ -46,23 +46,23 @@
         </li>
         @endcan
         {{-- End Tenants --}}
-        {{-- Pacakges --}}
+        {{-- Subscriptions --}}
 
-        {{-- @can('list_subscriptions') --}}
+        @can('list_subscriptions')
         <li class="menu-item @if (str_contains(Route::currentRouteName(), 'subscriptions')) active @endif ">
-            <a href="#" class="menu-link">
+            <a href="{{route('admin.subscriptions.index')}}" class="menu-link">
                 <i class="menu-icon tf-icons bi bi-receipt"></i>
                 <div data-i18n="Packages">{{ __('Subscriptions') }}</div>
             </a>
         </li>
-        {{-- @endcan --}}
+        @endcan
 
-        {{-- End Pacakges --}}
+        {{-- End Subscriptions --}}
         {{-- Pacakges --}}
 
         @can('list_packages')
         <li class="menu-item @if (str_contains(Route::currentRouteName(), 'packages')) active @endif ">
-            <a href="#" class="menu-link">
+            <a href="{{route('admin.packages.index')}}" class="menu-link">
                 <i class="menu-icon tf-icons bi bi-box"></i>
                 <div data-i18n="Packages">{{ __('Packages') }}</div>
             </a>
@@ -74,7 +74,7 @@
 
         @can('list_features')
         <li class="menu-item @if (str_contains(Route::currentRouteName(), 'features')) active @endif ">
-            <a href="#" class="menu-link">
+            <a href="{{route('admin.features.index')}}" class="menu-link">
                 <i class="menu-icon tf-icons bi bi-sliders2-vertical"></i>
                 <div data-i18n="Packages">{{ __('Features') }}</div>
             </a>

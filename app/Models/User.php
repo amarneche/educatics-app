@@ -8,14 +8,17 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Schema;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Stancl\VirtualColumn\VirtualColumn;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
     use HasApiTokens, HasFactory, Notifiable,VirtualColumn;
     use HasRoles;
+    use InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -55,6 +58,15 @@ class User extends Authenticatable
         return QueryBuilder::for(User::class)
                 ->allowedFilters(array_diff(Schema::getColumnListing('users'),['data']))
                 ->get();
+    }
+
+    public function eligibleForFreeTrial(){
+        // check if he has an active Tenant model where he's the owner.
+        
+        return is_null(Tenant::where('data->owner_id',$this->id)->first());
+    }
+    public function isTenant(){
+        return $this->hasRole([Role::TENANT]);
     }
 }
 

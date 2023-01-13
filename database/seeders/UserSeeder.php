@@ -17,9 +17,12 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $admin = Role::firstOrCreate(['name'=>'employee']);
-        $student = Role::firstOrCreate(['name'=>'student']);
-        User::factory()->count(5)->hasAttached([$admin,$student])->create();
+        $roles =['admin', 'teacher','student'];
+        User::factory()->count(10)->create()->each(function($user) use($roles){
+            $user->addMediaFromUrl('https://i.pravatar.cc/200?u='.$user->id)->toMediaCollection('avatar');
+            $user->assignRole([array_rand($roles)]);
+        });
+
 
     }
 }

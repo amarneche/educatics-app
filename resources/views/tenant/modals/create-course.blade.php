@@ -1,4 +1,4 @@
-<form id="myDropzone" action="{{ route('tenant.courses.store') }}" method="post" enctype="multipart/form-data">
+<form  action="{{ route('tenant.courses.store') }}" method="post" enctype="multipart/form-data">
     @csrf
     @method('post')
     <div class="modal modal-right  fade @if ($errors->any()) show @endif" id="modal-create-course"

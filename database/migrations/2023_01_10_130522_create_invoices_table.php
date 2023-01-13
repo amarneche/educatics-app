@@ -13,16 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('subscriptions', function (Blueprint $table) {
+        Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->string('tenant_id');
-            $table->foreignId('package_id');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->string('status');
-
+            $table->string('invoice_number');
+            $table->double('total_amount');
+            $table->double('paid_amount')->default(0);
+            $table->double('due_amount');
+            $table->date('invoice_date');
+            $table->date('due_date');
+            $table->json('data')->nullable();
             $table->foreign('tenant_id')->references('id')->on('tenants')->onUpdate('cascade')->onDelete('cascade');
-
             $table->timestamps();
         });
     }
@@ -34,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subscriptions');
+        Schema::dropIfExists('invoices');
     }
 };

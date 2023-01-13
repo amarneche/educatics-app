@@ -3,7 +3,7 @@
         @isset($label)
             <label class="form-label">{{ $label }}</label>
         @endisset
-        <select class="form-control form-control-sm select2" name="{{ $name }}">
+        <select class="form-control form-control-sm select2 @error('name') is-invalid @enderror " name="{{ $name }}">
             @isset($options)
                 @foreach ($options as $option)
                     <option value=""> {{ $option }}</option>

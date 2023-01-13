@@ -39,14 +39,14 @@
             </a>
         </li>
         @endcan
-        {{-- @can('list_enrollments') --}}
+        @can('list_enrollments')
         <li class="menu-item @if (str_contains(Route::currentRouteName(), 'enrollments')) active @endif ">
-            <a href="#" class="menu-link">
+            <a href="{{route('tenant.enrollments.index')}}" class="menu-link">
                 <i class="menu-icon tf-icons bi bi-bullseye"></i>
                 <div data-i18n="Enrollments">{{ __('Enrollments') }}</div>
             </a>
         </li>
-        {{-- @endcan --}}
+        @endcan
         {{-- @can('list_enrollments') --}}
         <li class="menu-item @if (str_contains(Route::currentRouteName(), 'plannings')) active @endif ">
             <a href="#" class="menu-link">
