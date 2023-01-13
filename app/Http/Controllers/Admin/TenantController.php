@@ -64,7 +64,8 @@ class TenantController extends Controller
         $tenant=null;
 
         try{
-            $tenant = Tenant::create($tenantData);     
+            $tenant = Tenant::create($tenantData);  
+            $tenant->domains()->create(['domain'=>$domain]);    
             $subscription=$tenant->subscriptions()->create([
                 'package_id'=>$request->package_id,
                 'start_date'=>Carbon::today(),
@@ -83,7 +84,7 @@ class TenantController extends Controller
             // send invoice via email. 
             
             //should validate subdomain .
-            $tenant->domains()->create(['domain'=>$domain]);        
+       
             $tenant->run(  function()use($currentUserData){
                     $user = User::create($currentUserData);
                     $user->assignRole([Role::ADMIN]);
@@ -92,6 +93,14 @@ class TenantController extends Controller
             session()->flash('success',__("Ecole crée avec success"));
         }
         catch(\Exception $e){
+            if(!is_null($tenant)){
+                $tenant->delete();
+                session()->flash('falure',__("Can't create LMS ".$e->getMessage()));
+
+            }
+
+        }
+        catch(\Error $e){
             if(!is_null($tenant)){
                 $tenant->delete();
                 session()->flash('falure',__("Can't create LMS ".$e->getMessage()));
