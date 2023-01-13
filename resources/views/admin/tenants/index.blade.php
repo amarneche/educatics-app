@@ -31,7 +31,7 @@
                     </a>
                     <div class="card-footer">
                         <div class="float-center">
-                            <a target="_blank" href="{{ tenant_route($school->domains?->first()->domain, 'login') }}"
+                            <a target="_blank" href="{{ tenant_route($school->domains?->first()?->domain, 'login') }}"
                                 class="btn btn-xs btn-secondary"> <i class="bi bi-box-arrow-in-right"></i>
                             </a>
 
