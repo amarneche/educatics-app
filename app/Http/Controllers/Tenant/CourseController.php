@@ -98,7 +98,7 @@ class CourseController extends Controller
         //
         $this->authorize('update',$course);
         $course->update(  $request->all()  );
-        dd($request->cover_photo);
+        
         if(isset($request->cover_photo)){
             $path =$request->cover_photo;  
             $course->clearMediaCollection('cover_photo');     
