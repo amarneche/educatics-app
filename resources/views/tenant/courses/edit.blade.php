@@ -137,7 +137,7 @@
                 <div class="card mb-3">
                     <div class="card-body">
                         <div class="card-image position-relative">
-                            
+
                             <span class="span position-absolute badge-circle bg-primary">x</span>
                         </div>
                         <label for="cover_photo" class="form-label">{{ __('Cover picture') }}</label>
@@ -166,12 +166,12 @@
                                 <div class="mb-3">
                                     <label for="duration_unit" class="form-label">{{ __('Unit') }}</label>
                                     <select class="form-select " name="duration_unit" id="duration_unit">
-                                        <option value="minute"selected>{{__("Minute")}}</option>
-                                        <option value="hour">{{__("Minute")}}</option>
-                                        <option value="day">{{__("Day")}}</option>
-                                        <option value="week">{{__("Day")}}</option>
-                                        <option value="month">{{__("Month")}}</option>
-                                        <option value="session">{{__("Session")}}</option>
+                                        <option value="minute"selected>{{ __('Minute') }}</option>
+                                        <option value="hour">{{ __('Minute') }}</option>
+                                        <option value="day">{{ __('Day') }}</option>
+                                        <option value="week">{{ __('Day') }}</option>
+                                        <option value="month">{{ __('Month') }}</option>
+                                        <option value="session">{{ __('Session') }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -180,9 +180,9 @@
                             <div class="mb-3">
                                 <label for="status" class="form-label">{{ __('Status') }}</label>
                                 <select class="form-select" name="status" id="">
-                                    <option value="draft">{{__("Draft")}}</option>
-                                    <option value="active">{{__("Active")}}</option>
-                                    <option value="paused">{{__("Paused")}}</option>
+                                    <option value="draft">{{ __('Draft') }}</option>
+                                    <option value="active">{{ __('Active') }}</option>
+                                    <option value="paused">{{ __('Paused') }}</option>
                                 </select>
                                 <small
                                     class="form-text text-muted">{{ __('Only active courses will show to students') }}</small>
@@ -227,14 +227,28 @@
 @section('scripts')
     <script src="{{ global_asset('assets/plugins/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ global_asset('assets/plugins/ckeditor/upload-adapter.js') }}"></script>
-    
+
     <script>
         $(document).ready(function() {
             coverPhoto = document.getElementById('cover_photo');
-            FilePond.create(coverPhoto);
+            FilePond.create(coverPhoto).setOptions({
+                files:[
+                    {
+                source: "{{ $course->getFirstMediaUrl('cover_photo') }}",
+                options: {
+                    type: 'local',
+                    file: {
+                        name: '{{$course->getFirstMedia('cover_photo')->file_name}}',
+                        size: "{{$course->getFirstMedia('cover_photo')->size}}"
+                    }
+                }
+            }
+                ]
+            });
+            
 
-            ClassicEditor.create(document.getElementById("full_description"),{
-                extraPlugins: [ UploadAdapterPlugin]
+            ClassicEditor.create(document.getElementById("full_description"), {
+                extraPlugins: [UploadAdapterPlugin]
             });
             ClassicEditor.create(document.getElementById("short_description"));
         });

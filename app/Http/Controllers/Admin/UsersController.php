@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\StoreUserRequest;
 use App\Http\Requests\Admin\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -89,6 +90,8 @@ class UsersController extends Controller
         $data =$request->all();
         if($request->password == null ) { 
             unset($data['password']);
+        }else {
+            $data['password'] = Hash::make($request->password);
         }
         unset($data['password_confirmation']);
         $user->update($data);
