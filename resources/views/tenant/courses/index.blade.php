@@ -35,15 +35,22 @@
                         @forelse($courses as $course)
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>
-                                <td><img class="img-responsive rounded"
-                                        src="{{ $course->getFirstMediaUrl('cover_photo', 'thumb') }}" alt=""
-                                        width="75"> </td>
-                                <td>{{ $course->title }}</td>
+                                <td>
+                                    <a href="{{ route('tenant.courses.show', $course) }}">
+                                        <img class="img-responsive rounded"
+                                            src="{{ $course->getFirstMediaUrl('cover_photo', 'thumb') }}" alt=""
+                                            width="75">
+                                    </a>
+                                </td>
+                                <td><a href="{{ route('tenant.courses.show', $course) }}" class="fw-bold">
+                                        {{ $course->title }}
+                                    </a></td>
                                 <td>{{ $course->price }} </td>
                                 <td>{{ $course->sale_price }} </td>
                                 <td>{{ $course->duration_formatted }} </td>
-                                <td><span class="badge rounded-pill bg-primary">40 Students</span> </td>
-                                <td> <span class="badge rounded-pill bg-secondary">{{ $course->status }}</span> </td>
+                                <td><span class="badge rounded-pill bg-primary">{{ $course->enrollments->count() }}</span>
+                                </td>
+                                <td><span class="badge rounded-pill bg-secondary">{{ $course->status }}</span> </td>
                                 <td>
                                     <div class="dropdown open">
                                         <a class="btn p-0 dropdown-toggle hide-arrow" type="button" id="triggerId"

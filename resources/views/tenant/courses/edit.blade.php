@@ -156,7 +156,7 @@
                             <div class="col-md-7">
                                 <div class="mb-3">
                                     <label for="duration" class="form-label">{{ __('Duration') }}</label>
-                                    <input type="number" class="form-control" name="duration" id="duration"
+                                    <input type="number" class="form-control" name="duration" value="{{old('duration',$course->duration)}}" id="duration"
                                         aria-describedby="helpId" placeholder="">
                                     <small id="helpId"
                                         class="form-text text-muted">{{ __('Duration of this course') }}</small>
@@ -167,9 +167,9 @@
                                     <label for="duration_unit" class="form-label">{{ __('Unit') }}</label>
                                     <select class="form-select " name="duration_unit" id="duration_unit">
                                         <option value="minute"selected>{{ __('Minute') }}</option>
-                                        <option value="hour">{{ __('Minute') }}</option>
+                                        <option value="hour">{{ __('Hour') }}</option>
                                         <option value="day">{{ __('Day') }}</option>
-                                        <option value="week">{{ __('Day') }}</option>
+                                        <option value="week">{{ __('Week') }}</option>
                                         <option value="month">{{ __('Month') }}</option>
                                         <option value="session">{{ __('Session') }}</option>
                                     </select>
@@ -231,26 +231,14 @@
     <script>
         $(document).ready(function() {
             coverPhoto = document.getElementById('cover_photo');
-            FilePond.create(coverPhoto).setOptions({
-                files:[
-                    {
-                source: "{{ $course->getFirstMediaUrl('cover_photo') }}",
-                options: {
-                    type: 'local',
-                    file: {
-                        name: '{{$course->getFirstMedia('cover_photo')->file_name}}',
-                        size: "{{$course->getFirstMedia('cover_photo')->size}}"
-                    }
-                }
-            }
-                ]
-            });
-            
+            FilePond.create(coverPhoto);           
 
             ClassicEditor.create(document.getElementById("full_description"), {
                 extraPlugins: [UploadAdapterPlugin]
             });
-            ClassicEditor.create(document.getElementById("short_description"));
+            ClassicEditor.create(document.getElementById("short_description") , {
+                extraPlugins: [UploadAdapterPlugin]
+            } );
         });
     </script>
 @endsection

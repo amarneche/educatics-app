@@ -49,17 +49,18 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($course->enrollments as $enrollment)
                                 <tr class="">
                                     <td scope="row">
                                         <a href="">
-                                            <strong>Amar neche</strong>
+                                            <strong>{{$enrollment->student?->full_name}}</strong>
                                         </a>
                                     </td>
-                                    <td>03 Janvier 2023</td>
+                                    <td>{{$enrollment->bacth?->starting_date}}</td>
 
                                     <td>
-                                        <a href="#" class="badge  text-dark">#inv104</a>
-                                        <span class="badge bg-success">Paid</span>
+                                        <a href="#" class="badge  text-dark">{{$enrollment->invoices?->last()?->invoice_number}}</a>
+                                        <span class="badge bg-success">{{$enrollment->invoices?->last()?->status}}</span>
                                     </td>
                                     <td>
                                         <div class="dropdown open">
@@ -73,6 +74,7 @@
                                         </div>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

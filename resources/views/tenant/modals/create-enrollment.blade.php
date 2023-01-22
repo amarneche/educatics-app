@@ -16,10 +16,10 @@
                 <div class="mb-3">
                     <label for="student_id" class="form-label">{{__("Student")}}</label>
                     <select class="form-select " name="student_id" id="student_id" required>
-                        <option selected>Select one</option>
-                        <option value="">New Delhi</option>
-                        <option value="">Istanbul</option>
-                        <option value="">Jakarta</option>
+                        @foreach($students as $student)
+                            <option value="{{$student->id}}" >   {{$student->full_name}} </option>
+                        @endforeach
+
                     </select>
 
                 </div>
@@ -27,24 +27,21 @@
                 <div class="mb-3">
                     <label for="course_id" class="form-label">{{__("Course")}}</label>
                     <select class="form-select " name="course_id" id="course_id">
-                        <option selected>Select one</option>
-                        <option value="">New Delhi</option>
-                        <option value="">Istanbul</option>
-                        <option value="">Jakarta</option>
+                        @foreach($courses as $course)
+                            <option value="{{$course->id}}">  {{$course->title}} </option>
+                        @endforeach
+
                     </select>
                 </div>
                 <div class="mb-3">
                     <label for="batch_id" class="form-label">{{__("Batch")}}</label>
                     <select class="form-select " name="batch_id" id="batch_id">
-                        <option selected>Select one</option>
-                        <option value="">New Delhi</option>
-                        <option value="">Istanbul</option>
-                        <option value="">Jakarta</option>
+
                     </select>
                 </div>
                 <div class="mb-3">
                   <label for="enrollment_date" class="form-label">{{__("Date")}}</label>
-                  <input type="date"
+                  <input type="date" value={{now()}}
                     class="form-control" name="enrollment_date" id="enrollment_date" aria-describedby="enrollment_date_help_id" placeholder="date">
                   <small id="enrollment_date_help_id" class="form-text text-muted">{{__("Enter enrollment date")}}</small>
                 </div>
@@ -66,6 +63,7 @@
 <script>
     $('document').ready(function(){
         $('#modal-create-enrollment').modal('show')
+
     });
 </script>
 @endsection
