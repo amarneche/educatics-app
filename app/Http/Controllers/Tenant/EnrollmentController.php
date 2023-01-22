@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
+use App\Models\Course;
 use App\Models\Enrollment;
+use App\Models\Role;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class EnrollmentController extends Controller
@@ -16,8 +20,11 @@ class EnrollmentController extends Controller
     public function index()
     {
         $this->authorize("list_enrollments");
-        $enrollments=Enrollment::all();
-        return view('tenant.enrollments.index',compact('enrollments'));
+        $enrollments=Enrollment::with(['student','course','batch'])->get();
+        $students = User::role(Role::STUDENT)->get();
+        $courses = Course::with('batches')->get();
+        
+        return view('tenant.enrollments.index',compact('enrollments','students','courses'));
     }
 
     /**
@@ -42,6 +49,22 @@ class EnrollmentController extends Controller
     {
         //
         $this->authorize('create',Enrollment::class);
+        $course =Course::find($request->course_id);
+        $enrollment= Enrollment::create([
+            'status'=>'active',
+            "payment_status"=>"unpaid",
+            'payment_method'=>'COD',
+            'course_id'=>$request->course_id,
+            'student_id'=>$request->student_id,
+            'enrollment_date'=>$request->enrollment_date,
+        ]);
+        
+        $invoice= $enrollment->invoices()->create([
+            'total_amount'=>$course->chosenPrice(),
+            'due_amount'=>$course->chosenPrice(),
+            'due_date'=>Carbon::today()->addDays(7),
+            'invoice_date'=>Carbon::today(),
+        ]);
         return redirect()->route('tenant.enrollments.index');
     }
 

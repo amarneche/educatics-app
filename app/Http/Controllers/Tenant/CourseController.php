@@ -55,7 +55,11 @@ class CourseController extends Controller
         if(isset($request->cover_photo)){
             $path =$request->cover_photo;         
             $course->addMedia(Storage::path($path))->toMediaCollection('cover_photo');
-        }        
+        }  
+        $course->batches()->create([
+            'title'=>'Default',
+
+        ])     ; 
         session()->flash('success',__('Le cours a été crèe avec succès'));
         return redirect()->route('tenant.courses.index');
         

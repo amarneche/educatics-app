@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\Sluggify;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
@@ -21,7 +22,9 @@ class Course extends Model implements HasMedia
     use Sluggify;
 
     protected $guarded=[];
-
+    protected $dates =[
+        'sale_price_effective_starts','sale_price_effective_ends','created_at','updated_at'
+    ];
     public static function getCustomColumns(): array {
         return array_diff(Schema::getColumnListing('courses'),['data']) ;
     }
@@ -49,5 +52,20 @@ class Course extends Model implements HasMedia
             ->defaultSort('-created_at')
             ->allowedFilters(['title','price','sale_price'])
             ->get();
+    }
+
+    public function batches(){
+        return $this->hasMany(Batch::class);
+    }
+    public function enrollments(){
+        return $this->hasMany(Enrollment::class);
+    }
+
+    public function chosenPrice(){
+        if(Carbon::now()->between($this->sale_price_effective_starts,$this->sale_price_effective_ends))
+            return   min(array_filter([$this->price,$this->sale_price] ,fn( $item   )=> !is_null($item) || $item!=0 )  );
+        else 
+            return $this->price;
+
     }
 }

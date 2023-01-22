@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('max_students')->nullable();
             $table->string('location', 255);
             $table->string('status', 50);
+            
             $table->foreignId('course_id');
             $table->json('data')->nullable();
             $table->timestamps();

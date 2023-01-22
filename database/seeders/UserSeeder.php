@@ -17,10 +17,12 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $roles =['admin', 'teacher','student'];
-        User::factory()->count(10)->create()->each(function($user) use($roles){
+        $roles =[Role::TEACHER,Role::EMPLOYEE,Role::STUDENT];
+        User::where('email','!=','admin@educatics.net')->delete();
+        User::factory()->count(50)->create()->each(function($user) use($roles){
             $user->addMediaFromUrl('https://i.pravatar.cc/200?u='.$user->id)->toMediaCollection('avatar');
-            $user->assignRole([array_rand($roles)]);
+            $user->assignRole([$roles[array_rand($roles)]]);
+            
         });
 
 

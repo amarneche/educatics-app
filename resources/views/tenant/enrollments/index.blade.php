@@ -19,7 +19,8 @@
                 <table class="table ">
                     <thead>
                         <tr>
-                            <th scope="col">{{ __('Student') }}</th>
+                           
+                            <th scope="col" colspan="2" >{{ __('Student') }}</th>
                             <th scope="col">{{ __('Course') }}</th>
                             <th scope="col">{{ __('Batch') }}</th>
                             <th scope="col">{{ __('Date') }}</th>
@@ -28,11 +29,24 @@
                         </tr>
                     </thead>
                     <tbody>
+
                         @foreach ($enrollments as $enrollment)
                             <tr>
-                                <td>{{ $enrollment->user->full_name }}</td>
-                                <td>{{ $enrollment->course->title }}</td>
-                                <td>{{ $enrollment->batch->title }}</td>
+                                <td>    
+                                    <a href="{{route('tenant.users.show',$enrollment->student)}}">
+                                        <img class="rounded" src="{{$enrollment->student?->getFirstMediaUrl('avatar')}}" alt="" width="50">
+
+                                    </a>
+                                </td>
+                                <td> 
+                                    <a class="fw-bold" href="{{route('tenant.users.show',$enrollment->student)}}">{{ $enrollment->student->full_name }}</a>
+                               </td>
+                                <td>
+                                    <a class="fw-bold" href="{{route('tenant.courses.show',$enrollment->course)}}">
+                                        {{ $enrollment->course->title }}                                    
+                                    </a>
+                                </td>
+                                <td>{{ $enrollment->batch?->title }}</td>
                                 <td>{{ $enrollment->created_at }}</td>
                                 <td>{{ $enrollment->payment_status }}</td>
                                 <td>
@@ -58,5 +72,5 @@
 @endsection
 
 @section('modals')
-    @include('tenant.modals.create-enrollment')
+    @include('tenant.modals.create-enrollment',$students)
 @endsection
