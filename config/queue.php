@@ -40,6 +40,15 @@ return [
             'queue' => 'default',
             'retry_after' => 90,
             'after_commit' => false,
+            'connection'=> env('DB_CONNECTION', 'mysql'),
+        ],
+        'central' => [
+            'driver' => 'database',
+            'table' => 'jobs',
+            'queue' => 'default',
+            'retry_after' => 90,
+            'central' => true, // <---
+            'connection'=> env('DB_CONNECTION', 'mysql'),
         ],
 
         'beanstalkd' => [

@@ -29,6 +29,10 @@ Route::group(['as'=>'admin.','prefix'=>'/','namespace'=>'App\Http\Controllers\Ad
     Route::resource('packages',PackageController::class);
     Route::resource('features',FeatureController::class);
     Route::resource('subscriptions',SubscriptionController::class);
+    Route::get('profile',[App\Http\Controllers\Admin\ProfileController::class,'show'])->name('profile.show');
+    Route::patch('profile',[App\Http\Controllers\Admin\ProfileController::class,'update'])->name('profile.update');
+    Route::get('app-settings',[App\Http\Controllers\Admin\SettingController::class,'view'])->name('settings.view');
+    Route::post('app-settings',[App\Http\Controllers\Admin\SettingController::class,'save'])->name('settings.save');
     Route::post('media/upload',[MediaController::class,'upload'])->name('media.upload');
 
 });

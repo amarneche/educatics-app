@@ -26,17 +26,17 @@ id="layout-navbar">
             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                 data-bs-toggle="dropdown">
                 <div class="avatar avatar-online">
-                    <img src="template/assets/img/avatars/1.png" alt
+                    <img src="{{auth()->user()?->avatarUrl()}}" alt
                         class="w-px-40 h-auto rounded-circle" />
                 </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
                 <li>
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item " href="{{route('admin.profile.show')}}">
                         <div class="d-flex">
                             <div class="flex-shrink-0 me-3">
                                 <div class="avatar avatar-online">
-                                    <img src="{{ global_asset('template/assets/img/avatars/1.png') }}"
+                                    <img src="{{ auth()->user()?->avatarUrl() }}"
                                         alt class="w-px-40 h-auto rounded-circle" />
                                 </div>
                             </div>
@@ -50,7 +50,7 @@ id="layout-navbar">
                     <div class="dropdown-divider"></div>
                 </li>
                 <li>
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item @if (str_contains(Route::currentRouteName(), 'profile')) active @endif " href="{{route('admin.profile.show')}}">
                         <i class="bx bx-user me-2"></i>
                         <span class="align-middle">{{__("My Profile")}}</span>
                     </a>
