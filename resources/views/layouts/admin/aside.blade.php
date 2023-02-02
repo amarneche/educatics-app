@@ -18,7 +18,7 @@
         <li class="menu-item @if (str_contains(Route::currentRouteName(), 'dashboard')) active @endif ">
             <a href="{{ route('admin.dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Dashboard</div>
+                <div data-i18n="Analytics">{{__("Dashboard")}}</div>
             </a>
         </li>
         @endcan
@@ -86,7 +86,7 @@
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bi bi-gear"></i>
-                <div data-i18n="Settings">Settings</div>
+                <div data-i18n="Settings">{{__('Settings')}}</div>
             </a>
             <ul class="menu-sub">
                 @can('list_roles')
@@ -103,8 +103,8 @@
                     </a>
                 </li>
                 @endcan
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                <li class="menu-item @if (str_contains(Route::currentRouteName(), 'admin.settings.view')) active @endif ">
+                    <a href="{{route('admin.settings.view')}}" class="menu-link">
                         <div data-i18n="App Setting">{{__("App Setting")}}</div>
                     </a>
                 </li>

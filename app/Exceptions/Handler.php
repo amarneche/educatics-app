@@ -2,7 +2,10 @@
 
 namespace App\Exceptions;
 
+use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Stancl\Tenancy\Exceptions\TenantCouldNotBeIdentifiedOnDomainException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -46,5 +49,24 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+    public function render($request, Throwable $exception)
+    
+    {
+        switch(get_class($exception)){
+            case NotFoundHttpException::class:{
+                return redirect("/");
+                break;
+            }
+
+            case TenantCouldNotBeIdentifiedOnDomainException::class :{
+                return response()->view("errors.tenant-not-found");
+                break;
+            }
+                
+            }
+        
+
+        return parent::render($request, $exception);
     }
 }

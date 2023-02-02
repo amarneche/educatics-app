@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Schema;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Stancl\VirtualColumn\VirtualColumn;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -67,6 +68,15 @@ class User extends Authenticatable implements HasMedia
     }
     public function isTenant(){
         return $this->hasRole([Role::TENANT]);
+    }
+
+    public function avatarUrl(){
+        return $this->getFirstMediaUrl('avatar','thumb')=="" ? config('default_avatar',env("DEFAULT_AVATAR")):$this->getFirstMediaUrl('avatar','thumb');
+    }
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+            ->crop('crop-center',200,200);
     }
 }
 

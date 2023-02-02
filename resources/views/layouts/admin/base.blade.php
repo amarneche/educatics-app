@@ -54,6 +54,7 @@
         <div class="layout-container">
             <!-- Menu -->
             @include('layouts.admin.aside')
+           
             <!-- / Menu -->
 
             <!-- Layout container -->
